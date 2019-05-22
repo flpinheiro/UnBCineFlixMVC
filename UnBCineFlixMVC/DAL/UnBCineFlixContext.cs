@@ -10,6 +10,8 @@ namespace UnBCineFlix.DAL
         public DbSet<Person> People { get; set; }
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Artist> Artists { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+
         public UnBCineFlixContext()
         {
 
@@ -26,9 +28,20 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<Phone>().HasKey(p => p.Id);
             modelBuilder.Entity<Rating>().HasKey(p => p.Id);
             modelBuilder.Entity<Artist>().HasKey(p => p.Id);
+            modelBuilder.Entity<Movie>().HasKey(p => p.Id);
+            modelBuilder.Entity<ArtistMovie>().HasKey(t=> new { t.MovieId, t.ArtistId});
+            //modelBuilder.Entity<RatingMovie>().HasKey(rm => new { rm.RatingId, rm.MovieId });
 
-            modelBuilder.Entity<Address>().HasOne(a => a.Person).WithMany(b => b.Addresses).HasForeignKey(p => p.PersonId);
-            modelBuilder.Entity<Phone>().HasOne(a => a.Person).WithMany(p => p.Phones).HasForeignKey(a => a.PersonId);
+            modelBuilder.Entity<Address>().HasOne(p => p.Person).WithMany(a => a.Addresses).HasForeignKey(p => p.PersonId).IsRequired();
+            modelBuilder.Entity<Phone>().HasOne(p => p.Person).WithMany(t => t.Phones).HasForeignKey(p => p.PersonId).IsRequired();
+            modelBuilder.Entity<ArtistMovie>().HasOne(am=>am.Artist).WithMany(a => a.Movies).HasForeignKey(am => am.ArtistId);
+            modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Movie).WithMany(m => m.Artists).HasForeignKey(am=>am.MovieId);
+            //modelBuilder.Entity<Movie>().
+
+            //modelBuilder.Entity<RatingMovie>().HasOne(rm => rm.Movie).WithMany(m => m.Ratings).HasForeignKey(rm=>rm.MovieId);
+            //modelBuilder.Entity<RatingMovie>().HasOne(rm => rm.Rating).WithMany(r => r.Movies).HasForeignKey(rm=>rm.RatingId);
+
+
             modelBuilder.Entity<Person>().HasData(
                 new Person { Id = 1, FirstName = "Felipe Luis", LastName = "Pinheiro", BirthDay = new DateTime(1985, 05, 01), CPF = "012.109.651-35" },
                 new Person { Id = 2, FirstName = "Cleonilde", LastName = "Pinheiro", BirthDay = new DateTime(1962, 10, 19), CPF = "376.646.971-15" }
@@ -63,7 +76,11 @@ namespace UnBCineFlix.DAL
                     BirthDay = new DateTime(1946, 6, 6)
                 }
                 );
-
+            modelBuilder.Entity<Movie>().HasData(
+                new Movie { Id = 1, Title = "Rambo 3", Duration = 180, ReleaseDate = new DateTime(2000, 12, 25) },
+                new Movie { Id = 2, Title = "Rambo 2", Duration = 200, ReleaseDate = new DateTime(1990, 12, 25) },
+                new Movie { Id = 3, Title = "Rambo  ", Duration = 160, ReleaseDate = new DateTime(1985, 12, 25)}
+                );
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

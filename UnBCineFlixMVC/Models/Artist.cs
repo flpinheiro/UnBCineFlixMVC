@@ -12,5 +12,11 @@ namespace UnBCineFlix.Models
         [DataType(DataType.Date)]
         public DateTime BirthDay { get; set; }
         public string Country { get; set; }
+
+        public IList<ArtistMovie> Movies { get; set; }
+        public Artist()
+        {
+            Movies = new List<ArtistMovie>();
+        }
     }
 }
