@@ -35,13 +35,19 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<ArtistMovie>().HasKey(am => new { am.MovieId, am.ArtistId });
 
             //foreign key setup space
-            modelBuilder.Entity<Address>().HasOne(a => a.Person).WithMany(p => p.Addresses).HasForeignKey(a => a.PersonId);
-            modelBuilder.Entity<Phone>().HasOne(ph => ph.Person).WithMany(p => p.Phones).HasForeignKey(ph => ph.PersonId);
-            modelBuilder.Entity<Address>().HasOne(a => a.Company).WithMany(p => p.Addresses).HasForeignKey(a => a.CompanyId);
-            modelBuilder.Entity<Phone>().HasOne(ph => ph.Company).WithMany(p => p.Phones).HasForeignKey(ph => ph.CompanyId);
-            modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Artist).WithMany(a => a.Movies).HasForeignKey(am => am.ArtistId);
-            modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Movie).WithMany(m => m.Artists).HasForeignKey(am => am.MovieId);
-            modelBuilder.Entity<Movie>().HasOne(m => m.Rating).WithMany(r => r.Movies).HasForeignKey(m => m.RatingId);
+            //modelBuilder.Entity<Address>().HasOne(a => a.Person).WithMany(p => p.Addresses).HasForeignKey(a => a.PersonId);
+            //modelBuilder.Entity<Person>().HasMany(p => p.Addresses).WithOne(a => a.Person).HasPrincipalKey(p => p.Id).IsRequired(false);
+            modelBuilder.Entity<Address>().HasOne(a => a.Person).WithMany(p => p.Addresses).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Phone>().HasOne(ph => ph.Person).WithMany(p => p.Phones).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Address>().HasOne(a => a.Company).WithMany(p => p.Addresses).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Phone>().HasOne(ph => ph.Company).WithMany(p => p.Phones).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Artist).WithMany(a => a.Movies).HasForeignKey(am => am.ArtistId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Movie).WithMany(m => m.Artists).HasForeignKey(am => am.MovieId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Movie>().HasOne(m => m.Rating).WithMany(r => r.Movies).HasForeignKey(m => m.RatingId).OnDelete(DeleteBehavior.SetNull);
+
+            //modelBuilder.Entity<Address>().Property<DateTime>("LastUpdated");
 
             modelBuilder.Entity<Customer>().HasBaseType<Person>();
             modelBuilder.Entity<Employee>().HasBaseType<Person>();
@@ -60,8 +66,8 @@ namespace UnBCineFlix.DAL
                 new Company {Id = 1 }
                 );
             modelBuilder.Entity<Address>().HasData(
-                new Address { Id = 1, City = "brasilia", District = "Asa Sul", Street = "sql", Number = 42, Complement = null, Country = "Brasil", State = "DF", ZipCode = 7000000, PersonId = 1, CompanyId = 1 },
-                new Address { Id = 2, City = "brasilia", District = "Asa norte", Street = "Campus Darcy Ribeiro", Number = 0, Complement = "ICC Norte", Country = "Brasil", State = "DF", ZipCode = 70000000, PersonId = 1, CompanyId = 1 }
+                new Address { Id = 1, City = "brasilia", District = "Asa Sul", Street = "sql", Number = 42, Complement = null, Country = "Brasil", State = "DF", ZipCode = 7000000, PersonId = 1},
+                new Address { Id = 2, City = "brasilia", District = "Asa norte", Street = "Campus Darcy Ribeiro", Number = 0, Complement = "ICC Norte", Country = "Brasil", State = "DF", ZipCode = 70000000, CompanyId = 1 }
             );
 
             modelBuilder.Entity<Phone>().HasData(
