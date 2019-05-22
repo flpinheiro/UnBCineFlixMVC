@@ -18,8 +18,8 @@ namespace UnBCineFlix.Models
         [Url]
         public byte[] Trailer { get; set; }
 
-        //public int RatingId { get; set; }
-        //public Rating Rating { get; set; }
+        public int RatingId { get; set; }
+        public Rating Rating { get; set; }
 
         public IList<ArtistMovie> Artists { get; set; }
         //public IList<RatingMovie> Ratings { get; set; }

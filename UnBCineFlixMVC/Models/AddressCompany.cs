@@ -6,7 +6,7 @@ using System.Text;
 
 namespace UnBCineFlix.Models
 {
-    public class Address
+    public class AddressCompany
     {
         public int Id { get; set; }
 
@@ -26,10 +26,6 @@ namespace UnBCineFlix.Models
         public int ZipCode { get; set; }
         [MaxLength(255)]
         public string Complement { get; set; }
-
-        //[ForeignKey("Person")]
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
 
         public int CompanyId { get; set; }
         public Company Company { get; set; }

@@ -10,11 +10,11 @@ namespace UnBCineFlix.Models
         public string Name { get; set; }
         public int Age { get; set; }
 
-        //public IList<RatingMovie> Movies { get; set; }
+        public IList<Movie> Movies { get; set; }
 
         public Rating()
         {
-          //  Movies = new List<RatingMovie>();
+            Movies = new List<Movie>();
         }
     }
 }
