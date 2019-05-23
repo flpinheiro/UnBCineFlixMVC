@@ -15,6 +15,9 @@ namespace UnBCineFlix.DAL
         public DbSet<Company> Companies { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        //errorviemodel
+        public DbSet<Genre> Genres { get; set; }
+        //GenreMovie
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieTheater> MovieTheaters { get; set; }
         public DbSet<Person> People { get; set; }
@@ -137,6 +140,11 @@ namespace UnBCineFlix.DAL
                 new Movie { Id = 1, Title = "Rambo 3", Duration = 180, ReleaseDate = new DateTime(2000, 12, 25), RatingId = 6 },
                 new Movie { Id = 2, Title = "Rambo 2", Duration = 200, ReleaseDate = new DateTime(1990, 12, 25), RatingId = 6 },
                 new Movie { Id = 3, Title = "Rambo  ", Duration = 160, ReleaseDate = new DateTime(1985, 12, 25) }
+            );
+
+            modelBuilder.Entity<Genre>().HasData(
+                new Genre { Id = 1, Name = "Action"},
+                new Genre { Id = 2, Name = "comedy" }
             );
 
             #endregion
