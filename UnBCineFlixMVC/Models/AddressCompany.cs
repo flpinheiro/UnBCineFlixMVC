@@ -29,5 +29,7 @@ namespace UnBCineFlix.Models
 
         public int CompanyId { get; set; }
         public Company Company { get; set; }
+
+        public IList<Phone> Phones { get; set; }
     }
 }

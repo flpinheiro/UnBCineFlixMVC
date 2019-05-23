@@ -33,8 +33,8 @@ namespace UnBCineFlix.Models
         public Person Person { get; set; }
 
         //[ForeignKey("Company")]
-        public int? CompanyId { get; set; }
-        [ForeignKey("CompanyId")]
-        public Company Company { get; set; }
+        //public int? CompanyId { get; set; }
+        //[ForeignKey("CompanyId")]
+        //public Company Company { get; set; }
     }
 }

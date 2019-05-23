@@ -11,7 +11,7 @@ namespace UnBCineFlix.Models
         public string Name { get; set; }
         public string CNPJ { get; set; }
 
-        public IList<Address> Addresses { get; set; }
-        public IList<Phone> Phones { get; set; }
+        public IList<AddressCompany> Addresses { get; set; }
+        //public IList<Phone> Phones { get; set; }
     }
 }

@@ -4,17 +4,17 @@ using System.Text;
 
 namespace UnBCineFlix.Models
 {
-    public class Phone
+    public class PhoneCompany
     {
         public int Id { get; set; }
         public int CountryCode { get; set; }
         public int AreaCode { get; set; }
         public int Number { get; set; }
 
-        public int? PersonId { get; set; }
+        public int PersonId { get; set; }
         public Person Person { get; set; }
 
-        public int? AddressCompanyId { get; set; }
-        public AddressCompany AddressCompany { get; set; }
+        //public int CompanyId { get; set; }
+        //public Company Company { get; set; }
     }
 }
