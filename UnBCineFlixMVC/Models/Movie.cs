@@ -20,7 +20,7 @@ namespace UnBCineFlix.Models
         public byte[] Trailer { get; set; }
 
         
-        public int RatingId { get; set; }
+        public int? RatingId { get; set; }
         //[ForeignKey("RatingId")]
         public Rating Rating { get; set; }
 

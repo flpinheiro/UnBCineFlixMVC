@@ -28,7 +28,7 @@ namespace UnBCineFlix.Models
         public string Complement { get; set; }
 
         //[ForeignKey("Person")]
-        public int? PersonId { get; set; }
+        public int PersonId { get; set; }
         //[ForeignKey("PersonId")]
         public Person Person { get; set; }
 

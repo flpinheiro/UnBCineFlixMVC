@@ -31,5 +31,11 @@ namespace UnBCineFlix.Models
         public Company Company { get; set; }
 
         public IList<Phone> Phones { get; set; }
+        public IList<MovieTheater> MovieTheaters { get; set; }
+
+        public AddressCompany()
+        {
+            Phones = new List<Phone>();
+        }
     }
 }
