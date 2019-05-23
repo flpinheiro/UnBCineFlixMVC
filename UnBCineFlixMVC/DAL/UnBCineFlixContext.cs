@@ -23,7 +23,7 @@ namespace UnBCineFlix.DAL
         public DbSet<Person> People { get; set; }
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Rating> Ratings { get; set; }
-
+        public DbSet<Ticket> Tickets { get; set; }
 
         public UnBCineFlixContext()
         {
@@ -51,6 +51,8 @@ namespace UnBCineFlix.DAL
             //primary key composta por id da sala de cinema e localização da coluna e fileira da cadeira
             modelBuilder.Entity<Chair>().HasKey(ch => new { ch.MovieTheaterId, ch.Row, ch.Col });
             modelBuilder.Entity<Session>().HasKey(s => new { s.SessionTime, s.MovieTheaterId });
+
+            modelBuilder.Entity<Ticket>().HasKey(t => new { t.MovieTheaterId, t.SessionTime, t.Row, t.Col});
             #endregion
 
             //foreign key setup space
@@ -75,6 +77,9 @@ namespace UnBCineFlix.DAL
 
             modelBuilder.Entity<Session>().HasOne(s => s.MovieTheater).WithMany(mt => mt.Sessions).HasForeignKey(s => s.MovieTheaterId).IsRequired();
             modelBuilder.Entity<Session>().HasOne(s => s.Movie).WithMany(m => m.Sessions).HasForeignKey(s => s.MovieId).IsRequired();
+
+            modelBuilder.Entity<Ticket>().HasOne(t => t.Session).WithMany(s => s.Tickets).IsRequired();
+            modelBuilder.Entity<Ticket>().HasOne(t => t.Chair).WithOne(ch=>ch.Ticket).IsRequired();
             #endregion
 
             //Espaço para propriedades

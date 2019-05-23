@@ -19,6 +19,7 @@ namespace UnBCineFlix.Models
 
         public int MovieTheaterId { get; set; }
         public MovieTheater MovieTheater { get; set; }
+        public Ticket Ticket { get; set; }
 
         public Chair()
         {

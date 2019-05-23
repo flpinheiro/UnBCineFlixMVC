@@ -13,5 +13,11 @@ namespace UnBCineFlix.Models
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
         public DateTime SessionTime { get; set; }
+        public IList<Ticket> Tickets { get; set; }
+
+        public Session()
+        {
+            Tickets = new List<Ticket>();
+        }
     }
 }
