@@ -10,9 +10,13 @@ namespace UnBCineFlix.DAL
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
 
         public UnBCineFlixContext()
         {
@@ -45,7 +49,10 @@ namespace UnBCineFlix.DAL
 
             modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Artist).WithMany(a => a.Movies).HasForeignKey(am => am.ArtistId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Movie).WithMany(m => m.Artists).HasForeignKey(am => am.MovieId).OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<Movie>().HasOne(m => m.Rating).WithMany(r => r.Movies).OnDelete(DeleteBehavior.SetNull);
             modelBuilder.Entity<Movie>().HasOne(m => m.Rating).WithMany(r => r.Movies).HasForeignKey(m => m.RatingId);
+            //modelBuilder.Entity<Rating>().HasMany(r => r.Movies).WithOne(m => m.Rating).HasPrincipalKey(r=>r.Id);
 
             //modelBuilder.Entity<Address>().Property<DateTime>("LastUpdated");
 
@@ -90,11 +97,11 @@ namespace UnBCineFlix.DAL
                 new Artist {Id = 2,Name = "Arnold Schwarzenegger", Country="Autria",BirthDay = new DateTime(1947,6,30) }
                 );
             modelBuilder.Entity<Movie>().HasData(
-                new Movie { Id = 1, Title = "Rambo 3", Duration = 180, ReleaseDate = new DateTime(2000, 12, 25), RatingId = 6 },
-                new Movie { Id = 2, Title = "Rambo 2", Duration = 200, ReleaseDate = new DateTime(1990, 12, 25), RatingId = 6 },
-                new Movie { Id = 3, Title = "Rambo  ", Duration = 160, ReleaseDate = new DateTime(1985, 12, 25), RatingId = 6 }
+                new Movie { Id = 1, Title = "Rambo 3", Duration = 180, ReleaseDate = new DateTime(2000, 12, 25), RatingId = 1 },
+                new Movie { Id = 2, Title = "Rambo 2", Duration = 200, ReleaseDate = new DateTime(1990, 12, 25), RatingId = 1 },
+                new Movie { Id = 3, Title = "Rambo  ", Duration = 160, ReleaseDate = new DateTime(1985, 12, 25), RatingId = 1 }
                 );
-        }
+        }       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

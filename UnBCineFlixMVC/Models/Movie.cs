@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,7 +19,9 @@ namespace UnBCineFlix.Models
         [Url]
         public byte[] Trailer { get; set; }
 
+        
         public int RatingId { get; set; }
+        //[ForeignKey("RatingId")]
         public Rating Rating { get; set; }
 
         public IList<ArtistMovie> Artists { get; set; }

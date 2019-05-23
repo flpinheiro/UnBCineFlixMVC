@@ -18,6 +18,15 @@ namespace UnBCineFlixMVC
             var context = new UnBCineFlixContext();
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
+
+            //var movies = context.Movies.ToList();
+            //foreach (var movie in movies)
+            //{
+            //    movie.Rating = new UnBCineFlix.Models.Rating { Id = 1 };
+            //    context.Movies.Update(movie);
+            //}
+            //context.SaveChanges();
+            
             CreateWebHostBuilder(args).Build().Run();
         }
 
