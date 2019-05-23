@@ -21,16 +21,18 @@ namespace UnBCineFlix.Models
 
         
         public int? RatingId { get; set; }
-        //[ForeignKey("RatingId")]
         public Rating Rating { get; set; }
 
+
+        public IList<Session> Sessions { get; set; }
         public IList<ArtistMovie> Artists { get; set; }
-        //public IList<RatingMovie> Ratings { get; set; }
+        public IList<GenreMovie> GenreMovies { get; set; }
 
         public Movie()
         {
             Artists = new List<ArtistMovie>();
-            //Ratings = new List<RatingMovie>();
+            Sessions = new List<Session>();
+            GenreMovies = new List<GenreMovie>();
         }
     }
 }

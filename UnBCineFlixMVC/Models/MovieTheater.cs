@@ -14,15 +14,15 @@ namespace UnBCineFlix.Models
         [Required]
         public int QtdCol { get; set; }
 
-
         public int AddressCompanyId { get; set; }
         public AddressCompany AddressCompany { get; set; }
-
         public IList<Chair> Chairs { get; set; }
+        public IList<Session> Sessions { get; set; }
 
         public MovieTheater()
         {
             Chairs = new List<Chair>();
+            Sessions = new List<Session>();
         }
 
 

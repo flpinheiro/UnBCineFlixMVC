@@ -8,16 +8,18 @@ namespace UnBCineFlix.DAL
     public class UnBCineFlixContext : DbContext
     {
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<Person> People { get; set; }
+        public DbSet<AddressCompany> AddressCompanies { get; set; }
+        public DbSet<Artist> Artists { get; set; }
+        //ArtistMovie
+        public DbSet<Chair> Chairs { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Phone> Phones { get; set; }
-        public DbSet<Artist> Artists { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieTheater> MovieTheaters { get; set; }
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<Person> People { get; set; }
+        public DbSet<Phone> Phones { get; set; }
         public DbSet<Rating> Ratings { get; set; }
-        public DbSet<Chair> Chairs { get; set; }
 
 
         public UnBCineFlixContext()
@@ -41,9 +43,11 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<Movie>().HasKey(m => m.Id);
             modelBuilder.Entity<Company>().HasKey(c => c.Id);
             modelBuilder.Entity<ArtistMovie>().HasKey(am => new { am.MovieId, am.ArtistId });
+            modelBuilder.Entity<GenreMovie>().HasKey(gm => new { gm.GenreId,gm.MovieId});
             modelBuilder.Entity<MovieTheater>().HasKey(mt => mt.Id);
             //primary key composta por id da sala de cinema e localização da coluna e fileira da cadeira
             modelBuilder.Entity<Chair>().HasKey(ch => new { ch.MovieTheaterId, ch.Row, ch.Col });
+            modelBuilder.Entity<Session>().HasKey(s => new { s.SessionTime, s.MovieTheaterId });
             #endregion
 
             //foreign key setup space
@@ -57,11 +61,17 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Artist).WithMany(a => a.Movies).HasForeignKey(am => am.ArtistId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Movie).WithMany(m => m.Artists).HasForeignKey(am => am.MovieId).OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<GenreMovie>().HasOne(gm => gm.Genre).WithMany(g => g.GenreMovies).HasForeignKey(gm => gm.GenreId).IsRequired();
+            modelBuilder.Entity<GenreMovie>().HasOne(gm => gm.Movie).WithMany(m => m.GenreMovies).HasForeignKey(gm => gm.MovieId).IsRequired();
+
             modelBuilder.Entity<Movie>().HasOne(m => m.Rating).WithMany(r => r.Movies).HasForeignKey(m => m.RatingId).OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<MovieTheater>().HasOne(mt => mt.AddressCompany).WithMany(ac => ac.MovieTheaters).HasForeignKey(mt => mt.AddressCompanyId);
 
             modelBuilder.Entity<Chair>().HasOne(ch => ch.MovieTheater).WithMany(mt => mt.Chairs).HasForeignKey(ch => ch.MovieTheaterId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Session>().HasOne(s => s.MovieTheater).WithMany(mt => mt.Sessions).HasForeignKey(s => s.MovieTheaterId).IsRequired();
+            modelBuilder.Entity<Session>().HasOne(s => s.Movie).WithMany(m => m.Sessions).HasForeignKey(s => s.MovieId).IsRequired();
             #endregion
 
             //Espaço para propriedades
