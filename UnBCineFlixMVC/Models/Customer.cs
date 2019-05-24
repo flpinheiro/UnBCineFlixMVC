@@ -9,10 +9,7 @@ namespace UnBCineFlix.Models
 {
     public class Customer : Person
     {
-        //    [ForeignKey(nameof(Person))]
-        //    public int CustomerId { get; set; }
-        [EmailAddress]
-        [Required,MinLength(6),MaxLength(100)]
+        [Required,MinLength(6),MaxLength(100), EmailAddress]
         public string Email { get; set; }
         [Required,DataType(DataType.Password),MinLength(6),MaxLength(100)]
         public string PassC { get; set; }

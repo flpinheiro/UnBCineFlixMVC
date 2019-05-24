@@ -14,8 +14,15 @@ namespace UnBCineFlix.Models
         [Required]
         public int QtdCol { get; set; }
 
+        /// <summary>
+        /// Chave estrangeira do banco de dados <see cref="AddressCompany"/>
+        /// </summary>
         public int AddressCompanyId { get; set; }
         public AddressCompany AddressCompany { get; set; }
+
+        /// <summary>
+        /// Ligação externa do banco de dados <see cref="Chair"/> e <see cref="Session"/>
+        /// </summary>
         public IList<Chair> Chairs { get; set; }
         public IList<Session> Sessions { get; set; }
 
@@ -24,7 +31,5 @@ namespace UnBCineFlix.Models
             Chairs = new List<Chair>();
             Sessions = new List<Session>();
         }
-
-
     }
 }

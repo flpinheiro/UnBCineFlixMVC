@@ -52,7 +52,7 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<Chair>().HasKey(ch => new { ch.MovieTheaterId, ch.Row, ch.Col });
             modelBuilder.Entity<Session>().HasKey(s => new { s.SessionTime, s.MovieTheaterId });
 
-            modelBuilder.Entity<Ticket>().HasKey(t => new { t.MovieTheaterId, t.SessionTime, t.Row, t.Col});
+            modelBuilder.Entity<Ticket>().HasKey(t => new { t.MovieTheaterId, t.SessionTime, t.ChairRow, t.ChairCol});
             #endregion
 
             //foreign key setup space
@@ -79,7 +79,7 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<Session>().HasOne(s => s.Movie).WithMany(m => m.Sessions).HasForeignKey(s => s.MovieId).IsRequired();
 
             modelBuilder.Entity<Ticket>().HasOne(t => t.Session).WithMany(s => s.Tickets).IsRequired();
-            modelBuilder.Entity<Ticket>().HasOne(t => t.Chair).WithOne(ch=>ch.Ticket).IsRequired();
+            //modelBuilder.Entity<Ticket>().HasOne(t => t.Chair).WithMany(ch=>ch.Tickets).IsRequired();
             #endregion
 
             //Espaço para propriedades
@@ -97,7 +97,7 @@ namespace UnBCineFlix.DAL
             //Seeding the DataBase
             #region seed
             modelBuilder.Entity<Company>().HasData(
-                new Company { Id = 1 }
+                new Company { Id = 1, Name = "Cine Marx" }
             );
 
             modelBuilder.Entity<AddressCompany>().HasData(
@@ -107,6 +107,18 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<MovieTheater>().HasData(
                 new MovieTheater {Id=1, AddressCompanyId=1, QtdCol=10, QtdRow=10  }
             );
+
+            // inicializa as cadeira da sala->todas.
+            for (int i = 0; i<10; i++)
+            {
+                for (int j = 0; j<10; j++)
+                {
+                    var c = new Chair(i, j);
+                    c.MovieTheaterId = 1;
+                    modelBuilder.Entity<Chair>().HasData(c);
+                }
+            }
+            
             
             modelBuilder.Entity<Customer>().HasData(
                 new Customer { Id = 1, FirstName = "Dovakin", LastName = "Alcantara", BirthDay = new DateTime(1911, 11, 11), CPF = "000.000.000-00", Email = "email@email", PassC = "muito louco" },
@@ -147,11 +159,29 @@ namespace UnBCineFlix.DAL
                 new Movie { Id = 3, Title = "Rambo  ", Duration = 160, ReleaseDate = new DateTime(1985, 12, 25) }
             );
 
+            modelBuilder.Entity<ArtistMovie>().HasData(
+                new ArtistMovie { MovieId = 1, ArtistId = 1},
+                new ArtistMovie { MovieId = 2, ArtistId = 1 }, 
+                new ArtistMovie { MovieId = 3, ArtistId = 1 },
+                new ArtistMovie { MovieId = 1, ArtistId = 2 }
+                );
+
             modelBuilder.Entity<Genre>().HasData(
                 new Genre { Id = 1, Name = "Action"},
                 new Genre { Id = 2, Name = "comedy" }
             );
+            modelBuilder.Entity<GenreMovie>().HasData(
+                new GenreMovie { MovieId = 1, GenreId = 1},
+                new GenreMovie { MovieId = 2, GenreId = 1 },
+                new GenreMovie { MovieId = 3, GenreId = 1 }
+                );
+            modelBuilder.Entity<Session>().HasData(
+                new Session {MovieTheaterId=1, SessionTime = DateTime.Today.AddDays(3), MovieId = 3 }
+                );
 
+            modelBuilder.Entity<Ticket>().HasData(
+                new Ticket { MovieTheaterId = 1, SessionTime = DateTime.Today.AddDays(3), ChairCol = 4, ChairRow = 5, Value = 10 }
+                );
             #endregion
         }
 

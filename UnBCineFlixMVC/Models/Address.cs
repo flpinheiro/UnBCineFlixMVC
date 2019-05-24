@@ -27,14 +27,10 @@ namespace UnBCineFlix.Models
         [MaxLength(255)]
         public string Complement { get; set; }
 
-        //[ForeignKey("Person")]
+        /// <summary>
+        /// Chave estrangeira do banco de dados referecia <see cref="Person"/>
+        /// </summary>
         public int PersonId { get; set; }
-        //[ForeignKey("PersonId")]
         public Person Person { get; set; }
-
-        //[ForeignKey("Company")]
-        //public int? CompanyId { get; set; }
-        //[ForeignKey("CompanyId")]
-        //public Company Company { get; set; }
     }
 }

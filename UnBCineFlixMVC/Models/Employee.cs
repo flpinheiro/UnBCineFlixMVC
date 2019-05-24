@@ -9,8 +9,6 @@ namespace UnBCineFlix.Models
 {
     public class Employee : Person
     {
-        //[ForeignKey(nameof(Person))]
-        //public int EmployeeId { get; set; }
         /// <summary>
         /// matricula de funcionario
         /// </summary>

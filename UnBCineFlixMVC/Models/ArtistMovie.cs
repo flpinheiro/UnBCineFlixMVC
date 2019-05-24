@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace UnBCineFlix.Models
 {
+    /// <summary>
+    /// Classe de ligação n para n <see cref="Artist"/> e <see cref="Movie"/>
+    /// </summary>
     public class ArtistMovie
     {
         public int ArtistId { get; set; }

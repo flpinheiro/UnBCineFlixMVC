@@ -17,13 +17,17 @@ namespace UnBCineFlix.Models
         [NotMapped]
         public bool Status { get; set; }
 
+        /// <summary>
+        /// LIgação externa com o banco de dados <see cref="MovieTheater"/>
+        /// </summary>
         public int MovieTheaterId { get; set; }
         public MovieTheater MovieTheater { get; set; }
-        public Ticket Ticket { get; set; }
+        //public IList<Ticket> Tickets { get; set; }
 
         public Chair()
         {
             Status = false; // cadeira vazia
+            //Tickets = new List<Ticket>();
         }
         public Chair(int row, int col, bool status = false)
         {

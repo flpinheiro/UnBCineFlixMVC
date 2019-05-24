@@ -27,15 +27,23 @@ namespace UnBCineFlix.Models
         [MaxLength(255)]
         public string Complement { get; set; }
 
+        /// <summary>
+        /// Chave estrageira do banco de Dados referência <see cref="Company"/>
+        /// </summary>
         public int CompanyId { get; set; }
         public Company Company { get; set; }
 
+        /// <summary>
+        /// Conjunto de Ligações externas
+        /// <see cref="Phone"/> e <see cref="MovieTheater"/>
+        /// </summary>
         public IList<Phone> Phones { get; set; }
         public IList<MovieTheater> MovieTheaters { get; set; }
 
         public AddressCompany()
         {
             Phones = new List<Phone>();
+            MovieTheaters = new List<MovieTheater>();
         }
     }
 }
