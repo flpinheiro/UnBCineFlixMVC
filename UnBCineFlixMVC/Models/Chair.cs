@@ -9,18 +9,19 @@ namespace UnBCineFlix.Models
 {
     public class Chair
     {
-        //public int Id { get; set; }
         [Required]
-        public int Row { get; set; }
+        public int Row { get; set; }//pk
         [Required]
-        public int Col { get; set; }
+        public int Col { get; set; }//pk
         [NotMapped]
         public bool Status { get; set; }
 
+        public int AddressCompanyId { get; set; }//fk,pk
+        public int MovieTheaterNumber { get; set; }//fk,pk
         /// <summary>
         /// LIgação externa com o banco de dados <see cref="MovieTheater"/>
         /// </summary>
-        public int MovieTheaterId { get; set; }
+        //public int MovieTheaterId { get; set; }
         public MovieTheater MovieTheater { get; set; }
         //public IList<Ticket> Tickets { get; set; }
 

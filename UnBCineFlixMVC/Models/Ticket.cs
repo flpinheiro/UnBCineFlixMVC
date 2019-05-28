@@ -12,10 +12,11 @@ namespace UnBCineFlix.Models
         [Required, DataType(DataType.Currency),Display(Name = "Ticket Value Paid")]
         public decimal Value { get; set; }
         [Display(Name = "Session Hour")]
-        public DateTime SessionTime { get; set; }
-        public int MovieTheaterId { get; set; }
-        public int ChairCol { get; set; }
-        public int ChairRow { get; set; }
+        public DateTime SessionTime { get; set; }//pk,fk
+        public int MovieTheaterNumber { get; set; }//pk,fk
+        public int AddressCompanyId { get; set; }//pk,fk
+        public int ChairCol { get; set; }//pk
+        public int ChairRow { get; set; }//pk
 
         public Session Session { get; set; }
         //public Chair Chair { get; set; }

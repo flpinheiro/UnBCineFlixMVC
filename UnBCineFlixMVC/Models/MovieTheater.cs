@@ -8,7 +8,8 @@ namespace UnBCineFlix.Models
 {
     public class MovieTheater
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public int MovieTheaterNumber { get; set; }
         [Required]
         public int Number { get; set; }
         [Required]

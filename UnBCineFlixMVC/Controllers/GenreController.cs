@@ -10,11 +10,11 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
-    public class GenresController : Controller
+    public class GenreController : Controller
     {
         private readonly UnBCineFlixContext _context;
 
-        public GenresController(UnBCineFlixContext context)
+        public GenreController(UnBCineFlixContext context)
         {
             _context = context;
         }
