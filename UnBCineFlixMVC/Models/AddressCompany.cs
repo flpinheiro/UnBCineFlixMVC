@@ -45,5 +45,14 @@ namespace UnBCineFlix.Models
             Phones = new List<Phone>();
             MovieTheaters = new List<MovieTheater>();
         }
+
+        public override string ToString()
+        {
+            var ret = new StringBuilder();
+            ret.AppendLine($"Country: {Country}");
+            ret.AppendLine($"City: {City}");
+            ret.Append($"District: {District}");
+            return base.ToString();
+        }
     }
 }

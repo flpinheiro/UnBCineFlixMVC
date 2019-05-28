@@ -43,7 +43,19 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
-        @RenderBody()
+        <div class="row">
+            <div class="col-md-2">
+                <aside class="nav">
+                    <ul>
+                        <li><a asp-area="" asp-controller="Companies" asp-action="Index">Companies</a></li>
+                        <li><a asp-area="" asp-controller="AddressCompanies" asp-action="Index">Address Companies</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-10">
+                @RenderBody()
+            </div>
+        </div>
         <hr />
         <footer>
             <p>&copy; 2019 - UnBCineFlixMVC</p>
