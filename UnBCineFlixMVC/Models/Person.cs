@@ -14,7 +14,8 @@ namespace UnBCineFlix.Models
         public string LastName { get; set; }
         [DataType(DataType.Date),Display(Name = "Birthday")]
         public DateTime BirthDay { get; set; }
-        [Display(Name = "CPF"), MaxLength(20)]
+        
+        [Display(Name = "CPF"), MaxLength(20),RegularExpression("[0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2}", ErrorMessage="CPF must be like 000.000.000-00")]
         public string CPF { get; set; }
         /// <summary>
         /// Ligação externa com o banco de dados <see cref="Address"/> e <see cref="Phone"/>

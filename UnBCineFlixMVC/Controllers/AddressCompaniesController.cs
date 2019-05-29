@@ -57,7 +57,7 @@ namespace UnBCineFlixMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Country,State,City,District,Street,Number,ZipCode,Complement,CompanyId")] AddressCompany addressCompany)
+        public async Task<IActionResult> Create([Bind("Id,Country,State,City,District,Street,Number,ZipCode,Complement,CompanyId,Name")] AddressCompany addressCompany)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace UnBCineFlixMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,State,City,District,Street,Number,ZipCode,Complement,CompanyId")] AddressCompany addressCompany)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,State,City,District,Street,Number,ZipCode,Complement,CompanyId,Name")] AddressCompany addressCompany)
         {
             if (id != addressCompany.Id)
             {

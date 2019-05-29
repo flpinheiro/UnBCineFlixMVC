@@ -11,8 +11,6 @@ namespace UnBCineFlix.Models
         //public int Id { get; set; }
         public int MovieTheaterNumber { get; set; }
         [Required]
-        public int Number { get; set; }
-        [Required]
         public int QtdRow { get; set; }
         [Required]
         public int QtdCol { get; set; }

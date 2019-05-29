@@ -11,6 +11,8 @@ namespace UnBCineFlix.Models
         public int Id { get; set; }
 
         [Required, MaxLength(100), MinLength(2)]
+        public String Name { get; set; }
+        [Required, MaxLength(100), MinLength(2)]
         public string Country { get; set; }
         [Required, MaxLength(100), MinLength(2)]
         public string State { get; set; }

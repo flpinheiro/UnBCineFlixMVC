@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using UnBCineFlix.DAL;
 using UnBCineFlix.Models;
 
-namespace UnBCineFlixMVC.Views
+namespace UnBCineFlixMVC.Controllers
 {
     public class GenresController : Controller
     {

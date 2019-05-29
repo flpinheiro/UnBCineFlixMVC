@@ -10,22 +10,22 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
-    public class GenreController : Controller
+    public class RatingsController : Controller
     {
         private readonly UnBCineFlixContext _context;
 
-        public GenreController(UnBCineFlixContext context)
+        public RatingsController(UnBCineFlixContext context)
         {
             _context = context;
         }
 
-        // GET: Genres
+        // GET: Ratings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Genres.ToListAsync());
+            return View(await _context.Ratings.ToListAsync());
         }
 
-        // GET: Genres/Details/5
+        // GET: Ratings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace UnBCineFlixMVC.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres
+            var rating = await _context.Ratings
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (genre == null)
+            if (rating == null)
             {
                 return NotFound();
             }
 
-            return View(genre);
+            return View(rating);
         }
 
-        // GET: Genres/Create
+        // GET: Ratings/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Genres/Create
+        // POST: Ratings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Genre genre)
+        public async Task<IActionResult> Create([Bind("Id,Name,Age")] Rating rating)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(genre);
+                _context.Add(rating);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(genre);
+            return View(rating);
         }
 
-        // GET: Genres/Edit/5
+        // GET: Ratings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace UnBCineFlixMVC.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres.FindAsync(id);
-            if (genre == null)
+            var rating = await _context.Ratings.FindAsync(id);
+            if (rating == null)
             {
                 return NotFound();
             }
-            return View(genre);
+            return View(rating);
         }
 
-        // POST: Genres/Edit/5
+        // POST: Ratings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Genre genre)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Age")] Rating rating)
         {
-            if (id != genre.Id)
+            if (id != rating.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace UnBCineFlixMVC.Controllers
             {
                 try
                 {
-                    _context.Update(genre);
+                    _context.Update(rating);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenreExists(genre.Id))
+                    if (!RatingExists(rating.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace UnBCineFlixMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(genre);
+            return View(rating);
         }
 
-        // GET: Genres/Delete/5
+        // GET: Ratings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace UnBCineFlixMVC.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres
+            var rating = await _context.Ratings
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (genre == null)
+            if (rating == null)
             {
                 return NotFound();
             }
 
-            return View(genre);
+            return View(rating);
         }
 
-        // POST: Genres/Delete/5
+        // POST: Ratings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
-            _context.Genres.Remove(genre);
+            var rating = await _context.Ratings.FindAsync(id);
+            _context.Ratings.Remove(rating);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GenreExists(int id)
+        private bool RatingExists(int id)
         {
-            return _context.Genres.Any(e => e.Id == id);
+            return _context.Ratings.Any(e => e.Id == id);
         }
     }
 }

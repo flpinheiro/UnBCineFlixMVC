@@ -14,7 +14,7 @@ namespace UnBCineFlix.Models
         public string Title { get; set; }
         [Display(Name = "Movie Duration")]
         public int Duration { get; set; }
-        [Display(Name = "Release Date")]
+        [Display(Name = "Release Date"),DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
         [Display(Name = "Movie Synopsis")]
         public string Synopsis { get; set; }

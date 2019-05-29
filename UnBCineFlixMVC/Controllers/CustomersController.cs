@@ -8,24 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using UnBCineFlix.DAL;
 using UnBCineFlix.Models;
 
-namespace UnBCineFlixMVC.Views
+namespace UnBCineFlixMVC.Controllers
 {
-    public class RatingsController : Controller
+    public class CustomersController : Controller
     {
         private readonly UnBCineFlixContext _context;
 
-        public RatingsController(UnBCineFlixContext context)
+        public CustomersController(UnBCineFlixContext context)
         {
             _context = context;
         }
 
-        // GET: Ratings
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ratings.ToListAsync());
+            return View(await _context.Customers.ToListAsync());
         }
 
-        // GET: Ratings/Details/5
+        // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace UnBCineFlixMVC.Views
                 return NotFound();
             }
 
-            var rating = await _context.Ratings
+            var customer = await _context.Customers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (rating == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(rating);
+            return View(customer);
         }
 
-        // GET: Ratings/Create
+        // GET: Customers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Ratings/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Age")] Rating rating)
+        public async Task<IActionResult> Create([Bind("Email,PassC,Id,FirstName,LastName,BirthDay,CPF")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(rating);
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(rating);
+            return View(customer);
         }
 
-        // GET: Ratings/Edit/5
+        // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace UnBCineFlixMVC.Views
                 return NotFound();
             }
 
-            var rating = await _context.Ratings.FindAsync(id);
-            if (rating == null)
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return View(rating);
+            return View(customer);
         }
 
-        // POST: Ratings/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Age")] Rating rating)
+        public async Task<IActionResult> Edit(int id, [Bind("Email,PassC,Id,FirstName,LastName,BirthDay,CPF")] Customer customer)
         {
-            if (id != rating.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace UnBCineFlixMVC.Views
             {
                 try
                 {
-                    _context.Update(rating);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RatingExists(rating.Id))
+                    if (!CustomerExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace UnBCineFlixMVC.Views
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(rating);
+            return View(customer);
         }
 
-        // GET: Ratings/Delete/5
+        // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace UnBCineFlixMVC.Views
                 return NotFound();
             }
 
-            var rating = await _context.Ratings
+            var customer = await _context.Customers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (rating == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(rating);
+            return View(customer);
         }
 
-        // POST: Ratings/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rating = await _context.Ratings.FindAsync(id);
-            _context.Ratings.Remove(rating);
+            var customer = await _context.Customers.FindAsync(id);
+            _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RatingExists(int id)
+        private bool CustomerExists(int id)
         {
-            return _context.Ratings.Any(e => e.Id == id);
+            return _context.Customers.Any(e => e.Id == id);
         }
     }
 }

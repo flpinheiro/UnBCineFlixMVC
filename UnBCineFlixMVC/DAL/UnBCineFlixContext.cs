@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnBCineFlix.Models;
 
 namespace UnBCineFlix.DAL
@@ -10,14 +11,14 @@ namespace UnBCineFlix.DAL
         public DbSet<Address> Addresses { get; set; }
         public DbSet<AddressCompany> AddressCompanies { get; set; }
         public DbSet<Artist> Artists { get; set; }
-        //ArtistMovie
+        public DbSet<ArtistMovie> ArtistMovies { get; set; }
         public DbSet<Chair> Chairs { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         //errorviemodel
         public DbSet<Genre> Genres { get; set; }
-        //GenreMovie
+        public DbSet<GenreMovie> GenreMovies { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieTheater> MovieTheaters { get; set; }
         public DbSet<Person> People { get; set; }
@@ -46,21 +47,21 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<Movie>().HasKey(m => m.Id);
             modelBuilder.Entity<Company>().HasKey(c => c.Id);
             modelBuilder.Entity<ArtistMovie>().HasKey(am => new { am.MovieId, am.ArtistId });
-            modelBuilder.Entity<GenreMovie>().HasKey(gm => new { gm.GenreId,gm.MovieId});
-            modelBuilder.Entity<MovieTheater>().HasKey(mt =>new { mt.AddressCompanyId, mt.MovieTheaterNumber});
+            modelBuilder.Entity<GenreMovie>().HasKey(gm => new { gm.GenreId, gm.MovieId });
+            modelBuilder.Entity<MovieTheater>().HasKey(mt => new { mt.AddressCompanyId, mt.MovieTheaterNumber });
             //primary key composta por id da sala de cinema e localização da coluna e fileira da cadeira
-            modelBuilder.Entity<Chair>()  .HasKey(ch => new { ch.AddressCompanyId, ch.MovieTheaterNumber, ch.Row, ch.Col });
-            modelBuilder.Entity<Session>().HasKey(s =>  new {  s.AddressCompanyId,  s.MovieTheaterNumber, s.SessionTime  });
-            modelBuilder.Entity<Ticket>() .HasKey(t =>  new {  t.AddressCompanyId,  t.MovieTheaterNumber, t.SessionTime, t.ChairRow, t.ChairCol });
+            modelBuilder.Entity<Chair>().HasKey(ch => new { ch.AddressCompanyId, ch.MovieTheaterNumber, ch.Row, ch.Col });
+            modelBuilder.Entity<Session>().HasKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber, s.SessionTime });
+            modelBuilder.Entity<Ticket>().HasKey(t => new { t.AddressCompanyId, t.MovieTheaterNumber, t.SessionTime, t.ChairRow, t.ChairCol });
             #endregion
 
             //foreign key setup space
             #region fk
-            modelBuilder.Entity<Address>().HasOne(a => a.Person) .WithMany(p => p.Addresses).HasForeignKey(a=>a.PersonId).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Phone>()  .HasOne(ph => ph.Person).WithMany(p => p.Phones).HasForeignKey(p=>p.PersonId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Address>().HasOne(a => a.Person).WithMany(p => p.Addresses).HasForeignKey(a => a.PersonId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Phone>().HasOne(ph => ph.Person).WithMany(p => p.Phones).HasForeignKey(p => p.PersonId).OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<AddressCompany>().HasOne(a => a.Company).WithMany(c => c.Addresses).HasForeignKey(ac=>ac.CompanyId).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Phone>().HasOne(ph => ph.AddressCompany).WithMany(c => c.Phones).HasForeignKey(p=>p.AddressCompanyId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<AddressCompany>().HasOne(a => a.Company).WithMany(c => c.Addresses).HasForeignKey(ac => ac.CompanyId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Phone>().HasOne(ph => ph.AddressCompany).WithMany(c => c.Phones).HasForeignKey(p => p.AddressCompanyId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Artist).WithMany(a => a.Movies).HasForeignKey(am => am.ArtistId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<ArtistMovie>().HasOne(am => am.Movie).WithMany(m => m.Artists).HasForeignKey(am => am.MovieId).OnDelete(DeleteBehavior.Cascade);
@@ -72,9 +73,9 @@ namespace UnBCineFlix.DAL
 
             modelBuilder.Entity<MovieTheater>().HasOne(mt => mt.AddressCompany).WithMany(ac => ac.MovieTheaters).HasForeignKey(mt => mt.AddressCompanyId);
 
-            modelBuilder.Entity<Chair>().HasOne(ch => ch.MovieTheater).WithMany(mt => mt.Chairs).HasForeignKey(ch =>new { ch.AddressCompanyId,ch.MovieTheaterNumber }).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Chair>().HasOne(ch => ch.MovieTheater).WithMany(mt => mt.Chairs).HasForeignKey(ch => new { ch.AddressCompanyId, ch.MovieTheaterNumber }).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Session>().HasOne(s => s.MovieTheater).WithMany(mt => mt.Sessions).HasForeignKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber}).IsRequired();
+            modelBuilder.Entity<Session>().HasOne(s => s.MovieTheater).WithMany(mt => mt.Sessions).HasForeignKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber }).IsRequired();
             modelBuilder.Entity<Session>().HasOne(s => s.Movie).WithMany(m => m.Sessions).HasForeignKey(s => s.MovieId).IsRequired();
 
             //modelBuilder.Entity<Ticket>().HasOne(t => t.Session).WithMany(s => s.Tickets).HasForeignKey(t=> new { t.MovieTheaterNumber , t.SessionTime,t.AddressCompanyId}).IsRequired();
@@ -101,17 +102,17 @@ namespace UnBCineFlix.DAL
             );
 
             modelBuilder.Entity<AddressCompany>().HasData(
-                new AddressCompany { Id = 1 , CompanyId = 1, City = "brasilia", District = "Asa Sul", Street = "sql", Number = 42, Complement = null, Country = "Brasil", State = "DF", ZipCode = 7000000 }
+                new AddressCompany { Id = 1, CompanyId = 1, City = "brasilia", District = "Asa Sul", Street = "sql", Number = 42, Complement = null, Country = "Brasil", State = "DF", ZipCode = 7000000, Name = "Brasilia Park"}
             );
 
             modelBuilder.Entity<MovieTheater>().HasData(
-                new MovieTheater {MovieTheaterNumber = 1, AddressCompanyId=1, QtdCol=10, QtdRow=10  }
+                new MovieTheater { MovieTheaterNumber = 1, AddressCompanyId = 1, QtdCol = 10, QtdRow = 10 }
             );
 
             // inicializa as cadeira da sala->todas.
-            for (int i = 0; i<10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j<10; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     var c = new Chair(i, j);
                     c.AddressCompanyId = 1;
@@ -119,8 +120,8 @@ namespace UnBCineFlix.DAL
                     modelBuilder.Entity<Chair>().HasData(c);
                 }
             }
-            
-            
+
+
             modelBuilder.Entity<Customer>().HasData(
                 new Customer { Id = 1, FirstName = "Dovakin", LastName = "Alcantara", BirthDay = new DateTime(1911, 11, 11), CPF = "000.000.000-00", Email = "email@email", PassC = "muito louco" },
                 new Customer { Id = 2, FirstName = "Machado", LastName = "de assis", BirthDay = new DateTime(1911, 11, 11), CPF = "333.333.333-33", Email = "email@email", PassC = "muito louco 2" }
@@ -132,7 +133,7 @@ namespace UnBCineFlix.DAL
 
             modelBuilder.Entity<Address>().HasData(
                 new Address { Id = 1, City = "brasilia", District = "Asa Sul", Street = "sql", Number = 42, Complement = null, Country = "Brasil", State = "DF", ZipCode = 7000000, PersonId = 1 },
-                new Address { Id = 2, City = "brasilia", District = "Asa norte", Street = "Campus Darcy Ribeiro", Number = 0, Complement = "ICC Norte", Country = "Brasil", State = "DF", ZipCode = 70000000, PersonId=2 }
+                new Address { Id = 2, City = "brasilia", District = "Asa norte", Street = "Campus Darcy Ribeiro", Number = 0, Complement = "ICC Norte", Country = "Brasil", State = "DF", ZipCode = 70000000, PersonId = 2 }
             );
 
             modelBuilder.Entity<Phone>().HasData(
@@ -161,27 +162,27 @@ namespace UnBCineFlix.DAL
             );
 
             modelBuilder.Entity<ArtistMovie>().HasData(
-                new ArtistMovie { MovieId = 1, ArtistId = 1},
-                new ArtistMovie { MovieId = 2, ArtistId = 1 }, 
+                new ArtistMovie { MovieId = 1, ArtistId = 1 },
+                new ArtistMovie { MovieId = 2, ArtistId = 1 },
                 new ArtistMovie { MovieId = 3, ArtistId = 1 },
                 new ArtistMovie { MovieId = 1, ArtistId = 2 }
                 );
 
             modelBuilder.Entity<Genre>().HasData(
-                new Genre { Id = 1, Name = "Action"},
+                new Genre { Id = 1, Name = "Action" },
                 new Genre { Id = 2, Name = "comedy" }
             );
             modelBuilder.Entity<GenreMovie>().HasData(
-                new GenreMovie { MovieId = 1, GenreId = 1},
+                new GenreMovie { MovieId = 1, GenreId = 1 },
                 new GenreMovie { MovieId = 2, GenreId = 1 },
                 new GenreMovie { MovieId = 3, GenreId = 1 }
                 );
             modelBuilder.Entity<Session>().HasData(
-                new Session {AddressCompanyId=1, SessionTime = DateTime.Today.AddDays(3), MovieId = 3, MovieTheaterNumber = 1 }
+                new Session { AddressCompanyId = 1, SessionTime = DateTime.Today.AddDays(3), MovieId = 3, MovieTheaterNumber = 1 }
                 );
 
             modelBuilder.Entity<Ticket>().HasData(
-                new Ticket { MovieTheaterNumber = 1,AddressCompanyId=1, SessionTime = DateTime.Today.AddDays(3), ChairCol = 4, ChairRow = 5, Value = 10 }
+                new Ticket { MovieTheaterNumber = 1, AddressCompanyId = 1, SessionTime = DateTime.Today.AddDays(3), ChairCol = 4, ChairRow = 5, Value = 10 }
                 );
             #endregion
         }
