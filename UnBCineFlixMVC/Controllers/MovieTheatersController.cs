@@ -29,16 +29,16 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int addressCompanyId, int? movieTheaterNumber)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (addressCompanyId == null)
+            //{
+            //    return NotFound();
+            //}
 
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => m.AddressCompanyId == id);
+                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
             if (movieTheater == null)
             {
                 return NotFound();
@@ -88,14 +88,16 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int addressCompanyId, int? movieTheaterNumber)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var movieTheater = await _context.MovieTheaters.FindAsync(id);
+            var movieTheater = await _context.MovieTheaters
+                .Include(m => m.AddressCompany)
+                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
             if (movieTheater == null)
             {
                 return NotFound();
@@ -141,16 +143,16 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int addressCompanyId, int? movieTheaterNumber)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => m.AddressCompanyId == id);
+                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
             if (movieTheater == null)
             {
                 return NotFound();
