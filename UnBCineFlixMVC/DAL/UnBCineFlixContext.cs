@@ -106,7 +106,7 @@ namespace UnBCineFlix.DAL
             );
 
             modelBuilder.Entity<MovieTheater>().HasData(
-                new MovieTheater { MovieTheaterNumber = 1, AddressCompanyId = 1, QtdCol = 10, QtdRow = 10 }
+                new MovieTheater { MovieTheaterNumber = 1, AddressCompanyId = 1, QtdCol= 10, QtdRow =10}
             );
 
             // inicializa as cadeira da sala->todas.

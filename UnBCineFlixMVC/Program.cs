@@ -11,7 +11,7 @@ using UnBCineFlix.DAL;
 
 namespace UnBCineFlixMVC
 {
-    public class Program
+    class Program
     {
         public static void Main(string[] args)
         {

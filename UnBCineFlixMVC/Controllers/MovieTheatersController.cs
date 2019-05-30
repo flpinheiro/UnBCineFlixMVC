@@ -111,9 +111,9 @@ namespace UnBCineFlixMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieTheaterNumber,Number,QtdRow,QtdCol,AddressCompanyId")] MovieTheater movieTheater)
+        public async Task<IActionResult> Edit(int addressCompanyId, int movieTheaterNumber, [Bind("MovieTheaterNumber,QtdRow,QtdCol,AddressCompanyId")] MovieTheater movieTheater)
         {
-            if (id != movieTheater.AddressCompanyId)
+            if (addressCompanyId != movieTheater.AddressCompanyId && movieTheaterNumber != movieTheater.MovieTheaterNumber)
             {
                 return NotFound();
             }
@@ -127,13 +127,13 @@ namespace UnBCineFlixMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieTheaterExists(movieTheater.AddressCompanyId))
+                    if (!MovieTheaterExists(movieTheater.AddressCompanyId, movieTheater.MovieTheaterNumber))
                     {
                         return NotFound();
                     }
                     else
                     {
-                        throw;
+                        throw new Exception("Impossible to Update");
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -164,17 +164,19 @@ namespace UnBCineFlixMVC.Controllers
         // POST: MovieTheaters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int addressCompanyId, int? movieTheaterNumber)
         {
-            var movieTheater = await _context.MovieTheaters.FindAsync(id);
+            var movieTheater = await _context.MovieTheaters
+                .Include(m => m.AddressCompany)
+                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
             _context.MovieTheaters.Remove(movieTheater);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieTheaterExists(int id)
+        private bool MovieTheaterExists(int addressCompanyId, int movieTheaterNumber)
         {
-            return _context.MovieTheaters.Any(e => e.AddressCompanyId == id);
+            return _context.MovieTheaters.Any(e =>  (e.MovieTheaterNumber==movieTheaterNumber));
         }
     }
 }

@@ -10,6 +10,9 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
+    /// <summary>
+    /// Classe de controle de endereço de empressas
+    /// </summary>
     public class AddressCompaniesController : Controller
     {
         private readonly UnBCineFlixContext _context;
