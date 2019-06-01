@@ -90,7 +90,7 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Edit/5
-        public async Task<IActionResult> Edit(int addressCompanyId, int? movieTheaterNumber)
+        public async Task<IActionResult> Edit(int addressCompanyId, int movieTheaterNumber)
         {
             //if (id == null)
             //{
@@ -99,7 +99,7 @@ namespace UnBCineFlixMVC.Controllers
 
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
+                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
             if (movieTheater == null)
             {
                 return NotFound();
@@ -181,13 +181,43 @@ namespace UnBCineFlixMVC.Controllers
             return _context.MovieTheaters.Any(e => (e.MovieTheaterNumber == movieTheaterNumber));
         }
 
-        public async Task<IActionResult> CreateChair(int addressCompanyId, int? movieTheaterNumber)
+        public async Task<IActionResult> CreateChair(int addressCompanyId, int movieTheaterNumber)
         {
-            var movieTheater = await _context.MovieTheaters
-                .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
+            ViewData["AddresCompanyId"] = addressCompanyId;
+            ViewData["MovieTheaterNumber"] = movieTheaterNumber;
 
-            return View(movieTheater);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateChair([Bind("AddresCompanyId,MovieTheaterNumber,Row,Col")] Chair chair)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(chair);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    Debug.Write(e);
+                    return RedirectToAction(nameof(CreateChair));
+                    //throw new DbUpdateConcurrencyException("Impossible to add this Movie Theater");
+                }
+                catch (DbUpdateException e)
+                {
+                    Debug.Write(e);
+                    TempData["erro"] = "Already exist, try another";
+                    //throw new DbUpdateException("Impossible to save",e);
+                    return RedirectToAction(nameof(CreateChair));
+                }
+
+                return RedirectToAction(nameof(Details));
+            }
+            //ViewData["AddressCompanyId"] = new SelectList(_context.AddressCompanies, "Id", "Name", movieTheater.AddressCompanyId);
+            return View();
         }
     }
 }
