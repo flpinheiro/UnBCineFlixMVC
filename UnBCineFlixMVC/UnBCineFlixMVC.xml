@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UnBCineFlixMVC</name>
+    </assembly>
+    <members>
+        <member name="T:UnBCineFlixMVC.Controllers.AddressCompaniesController">
+            <summary>
+            Classe de controle de endereço de empressas
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Address.PersonId">
+            <summary>
+            Chave estrangeira do banco de dados referecia <see cref="P:UnBCineFlix.Models.Address.Person"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.AddressCompany.CompanyId">
+            <summary>
+            Chave estrageira do banco de Dados referência <see cref="P:UnBCineFlix.Models.AddressCompany.Company"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.AddressCompany.Phones">
+            <summary>
+            Conjunto de Ligações externas
+            <see cref="T:UnBCineFlix.Models.Phone"/> e <see cref="T:UnBCineFlix.Models.MovieTheater"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Artist.Movies">
+            <summary>
+            Lista de ligações externas <see cref="T:UnBCineFlix.Models.Movie"/> e <seealso cref="T:UnBCineFlix.Models.ArtistMovie"/>
+            </summary>
+        </member>
+        <member name="T:UnBCineFlix.Models.ArtistMovie">
+            <summary>
+            Classe de ligação n para n <see cref="P:UnBCineFlix.Models.ArtistMovie.Artist"/> e <see cref="P:UnBCineFlix.Models.ArtistMovie.Movie"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Chair.MovieTheater">
+            <summary>
+            LIgação externa com o banco de dados <see cref="P:UnBCineFlix.Models.Chair.MovieTheater"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Company.Addresses">
+            <summary>
+            Ligação externa <see cref="T:UnBCineFlix.Models.AddressCompany"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Employee.Cod">
+            <summary>
+            matricula de funcionario
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Employee.PassE">
+            <summary>
+            Senha de funcionario
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Genre.GenreMovies">
+            <summary>
+            Ligaçào externa do Banco de Dados <see cref="T:UnBCineFlix.Models.Genre"/> e <seealso cref="T:UnBCineFlix.Models.Movie"/>
+            </summary>
+        </member>
+        <member name="T:UnBCineFlix.Models.GenreMovie">
+            <summary>
+            Classe de relação n para n entre <see cref="P:UnBCineFlix.Models.GenreMovie.Genre"/> e <seealso cref="P:UnBCineFlix.Models.GenreMovie.Movie"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Movie.RatingId">
+            <summary>
+            Chave estrangeira do banco de dados <see cref="P:UnBCineFlix.Models.Movie.Rating"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Movie.Sessions">
+            <summary>
+            Ligação externa com banco de dados <see cref="T:UnBCineFlix.Models.Session"/>, <see cref="T:UnBCineFlix.Models.Artist"/> e <seealso cref="T:UnBCineFlix.Models.GenreMovie"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.MovieTheater.AddressCompanyId">
+            <summary>
+            Chave estrangeira do banco de dados <see cref="P:UnBCineFlix.Models.MovieTheater.AddressCompany"/>
+            </summary>
+        </member>
+        <member name="F:UnBCineFlix.Models.MovieTheater._arrayChair">
+            <summary>
+            Ligação externa do banco de dados <see cref="T:UnBCineFlix.Models.Chair"/> e <see cref="T:UnBCineFlix.Models.Session"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Person.Addresses">
+            <summary>
+            Ligação externa com o banco de dados <see cref="T:UnBCineFlix.Models.Address"/> e <see cref="T:UnBCineFlix.Models.Phone"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Phone.PersonId">
+            <summary>
+            Chave estrangeira do banco de dados <see cref="P:UnBCineFlix.Models.Phone.Person"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Phone.AddressCompanyId">
+            <summary>
+            Chave estrangeira do banco de dados <see cref="P:UnBCineFlix.Models.Phone.AddressCompany"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Rating.Movies">
+            <summary>
+            ligação externa com o banco de dados <see cref="T:UnBCineFlix.Models.Movie"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Session.Tickets">
+            <summary>
+            Ligação externa com o banco de dados <see cref="T:UnBCineFlix.Models.Ticket"/>
+            </summary>
+        </member>
+    </members>
+</doc>

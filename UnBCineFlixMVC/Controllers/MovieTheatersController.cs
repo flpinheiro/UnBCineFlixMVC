@@ -38,7 +38,7 @@ namespace UnBCineFlixMVC.Controllers
 
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
+                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
             if (movieTheater == null)
             {
                 return NotFound();
@@ -50,6 +50,7 @@ namespace UnBCineFlixMVC.Controllers
         // GET: MovieTheaters/Create
         public IActionResult Create()
         {
+            ViewData["erro"] = TempData["erro"];
             ViewData["AddressCompanyId"] = new SelectList(_context.AddressCompanies, "Id", "Name");
             return View();
         }
@@ -77,6 +78,7 @@ namespace UnBCineFlixMVC.Controllers
                 catch (DbUpdateException e)
                 {
                     Debug.Write(e);
+                    TempData["erro"] = "Already exist, try another";
                     //throw new DbUpdateException("Impossible to save",e);
                     return RedirectToAction(nameof(Create));
                 }
@@ -176,7 +178,16 @@ namespace UnBCineFlixMVC.Controllers
 
         private bool MovieTheaterExists(int addressCompanyId, int movieTheaterNumber)
         {
-            return _context.MovieTheaters.Any(e =>  (e.MovieTheaterNumber==movieTheaterNumber));
+            return _context.MovieTheaters.Any(e => (e.MovieTheaterNumber == movieTheaterNumber));
+        }
+
+        public async Task<IActionResult> CreateChair(int addressCompanyId, int? movieTheaterNumber)
+        {
+            var movieTheater = await _context.MovieTheaters
+                .Include(m => m.AddressCompany)
+                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
+
+            return View(movieTheater);
         }
     }
 }
