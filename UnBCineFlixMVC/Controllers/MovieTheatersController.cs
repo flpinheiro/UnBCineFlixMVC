@@ -35,7 +35,7 @@ namespace UnBCineFlixMVC.Controllers
             //{
             //    return NotFound();
             //}
-
+            ViewData["mensage"] = TempData["mensage"];
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
                 .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
@@ -91,6 +91,8 @@ namespace UnBCineFlixMVC.Controllers
 
         public async Task<IActionResult> CreateChair(int addressCompanyId, int movieTheaterNumber)
         {
+            ViewData["erro"] = TempData["erro"];
+            ViewData["mensage"] = TempData["mensage"];
             return View();
         }
 
@@ -102,15 +104,16 @@ namespace UnBCineFlixMVC.Controllers
             {
                 try
                 {
-                    var movieTheater = await _context.MovieTheaters
+                    var movieTheater = new MovieTheater(await _context.MovieTheaters
                         .Include(m => m.Chairs)
-                        .FirstOrDefaultAsync(m=> (m.AddressCompanyId == chair.AddressCompanyId && m.MovieTheaterNumber == chair.MovieTheaterNumber));
-                    movieTheater.AddChair(chair);
+                        .FirstOrDefaultAsync(m=> (m.AddressCompanyId == chair.AddressCompanyId && m.MovieTheaterNumber == chair.MovieTheaterNumber)));
+                    movieTheater.AddChair(chair) ;
                     _context.Add(chair);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
+                    TempData["erro"] = "Already exist, try another";
                     Debug.Write(e);
                     return RedirectToAction(nameof(CreateChair));
                     //throw new DbUpdateConcurrencyException("Impossible to add this Movie Theater");

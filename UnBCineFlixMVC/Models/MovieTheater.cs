@@ -29,13 +29,34 @@ namespace UnBCineFlix.Models
         public IList<Chair> Chairs { get; set; }
         public IList<Session> Sessions { get; set; }
 
-        public MovieTheater()
+        private MovieTheater()
         {
-            //QtdRow = qtdRow;
-            //QtdCol = qtdCol;
             Chairs = new List<Chair>();
             Sessions = new List<Session>();
-            _arrayChair = null;
+        }
+        public MovieTheater(int qtdRow, int qtdCol, IList<Chair> chairs = null)
+            : this()
+        {
+            QtdCol = qtdCol;
+            QtdRow = qtdRow;
+            _arrayChair = new Chair[qtdRow][];
+            for (int i = 0; i < qtdRow; i++)
+            {
+                _arrayChair[i] = new Chair[qtdCol];
+            }
+            if (chairs != null)
+            {
+                Chairs = chairs;
+                foreach (var c in chairs)
+                {
+                    AddChair(c);
+                }
+            }
+        }
+        public MovieTheater(MovieTheater movieTheater)
+            : this(qtdRow: movieTheater.QtdRow, qtdCol: movieTheater.QtdCol, chairs: movieTheater.Chairs)
+        {
+
         }
         public void AddChair(int row, int col)
         {
@@ -53,35 +74,23 @@ namespace UnBCineFlix.Models
             {
                 throw new ArgumentOutOfRangeException("The chair numeration is bigger than the size of the MovieTheater");
             }
-            if (_arrayChair == null)
-            {
-                InitArrayChair();
-            }
+
             if (_arrayChair[chair.Row][chair.Col] == null)
             {
                 _arrayChair[chair.Row][chair.Col] = chair;
-                Chairs.Add(chair);
             }
             else
             {
                 throw new DbUpdateException("Já existe essa cadeira.", new ArgumentException());
             }
         }
-        private void InitArrayChair()
-        {
-            for (int i = 0; i < QtdRow; i++)
-            {
-                _arrayChair = new Chair[QtdRow][];
-                for (int j = 0; j < QtdCol; j++)
-                {
-                    _arrayChair[i] = new Chair[QtdCol];
-                    _arrayChair[i][j] = null;
-                }
-            }
-            foreach (var chair in Chairs)
-            {
-                AddChair(chair);
-            }
-        }
+
+        //public void AddChair(IList<Chair> chairs)
+        //{
+        //    foreach (var c in chairs)
+        //    {
+        //        AddChair(c);
+        //    }
+        //}
     }
 }
