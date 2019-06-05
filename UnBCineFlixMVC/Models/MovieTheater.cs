@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -34,13 +35,24 @@ namespace UnBCineFlix.Models
             //QtdCol = qtdCol;
             Chairs = new List<Chair>();
             Sessions = new List<Session>();
+            _arrayChair = null;
         }
         public void AddChair(int row, int col)
         {
             AddChair(new Chair(row, col));
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chair"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Se a numeração da cadeira for maior do que o tamanho da sala essa exceção é lançada</exception>
+        /// <exception cref="DbUpdateException">Caso a cadeira já exista no sistema a exceção é lançada.</exception>
         public void AddChair(Chair chair)
         {
+            if (chair.Row >= QtdRow || chair.Col >= QtdCol)
+            {
+                throw new ArgumentOutOfRangeException("The chair numeration is bigger than the size of the MovieTheater");
+            }
             if (_arrayChair == null)
             {
                 InitArrayChair();
@@ -48,10 +60,11 @@ namespace UnBCineFlix.Models
             if (_arrayChair[chair.Row][chair.Col] == null)
             {
                 _arrayChair[chair.Row][chair.Col] = chair;
+                Chairs.Add(chair);
             }
             else
             {
-                throw new Exception("Já existe essa cadeira.");
+                throw new DbUpdateException("Já existe essa cadeira.", new ArgumentException());
             }
         }
         private void InitArrayChair()
@@ -62,7 +75,12 @@ namespace UnBCineFlix.Models
                 for (int j = 0; j < QtdCol; j++)
                 {
                     _arrayChair[i] = new Chair[QtdCol];
+                    _arrayChair[i][j] = null;
                 }
+            }
+            foreach (var chair in Chairs)
+            {
+                AddChair(chair);
             }
         }
     }

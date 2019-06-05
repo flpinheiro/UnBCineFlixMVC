@@ -9,9 +9,24 @@
             Classe de controle de endereço de empressas
             </summary>
         </member>
+        <member name="T:UnBCineFlix.Models.Address">
+            <summary>
+            Classe endereco: define o endereço de uma pessoa.
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.Address.Complement">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:UnBCineFlix.Models.Address.PersonId">
             <summary>
             Chave estrangeira do banco de dados referecia <see cref="P:UnBCineFlix.Models.Address.Person"/>
+            </summary>
+        </member>
+        <member name="T:UnBCineFlix.Models.AddressCompany">
+            <summary>
+            Define o endereço de uma Empresa
             </summary>
         </member>
         <member name="P:UnBCineFlix.Models.AddressCompany.CompanyId">
@@ -84,6 +99,14 @@
             <summary>
             Ligação externa do banco de dados <see cref="T:UnBCineFlix.Models.Chair"/> e <see cref="T:UnBCineFlix.Models.Session"/>
             </summary>
+        </member>
+        <member name="M:UnBCineFlix.Models.MovieTheater.AddChair(UnBCineFlix.Models.Chair)">
+            <summary>
+            
+            </summary>
+            <param name="chair"></param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Se a numeração da cadeira for maior do que o tamanho da sala essa exceção é lançada</exception>
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateException">Caso a cadeira já exista no sistema a exceção é lançada.</exception>
         </member>
         <member name="P:UnBCineFlix.Models.Person.Addresses">
             <summary>

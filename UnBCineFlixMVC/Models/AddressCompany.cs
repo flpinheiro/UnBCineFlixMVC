@@ -6,8 +6,12 @@ using System.Text;
 
 namespace UnBCineFlix.Models
 {
+    /// <summary>
+    /// Define o endereço de uma Empresa
+    /// </summary>
     public class AddressCompany
     {
+
         public int Id { get; set; }
 
         [Required, MaxLength(100), MinLength(2)]

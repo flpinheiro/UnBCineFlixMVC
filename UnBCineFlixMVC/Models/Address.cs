@@ -6,6 +6,9 @@ using System.Text;
 
 namespace UnBCineFlix.Models
 {
+    /// <summary>
+    /// Classe endereco: define o endereço de uma pessoa.
+    /// </summary>
     public class Address
     {
         public int Id { get; set; }
@@ -24,6 +27,9 @@ namespace UnBCineFlix.Models
         public int Number { get; set; }
         [Required]
         public int ZipCode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [MaxLength(255)]
         public string Complement { get; set; }
 

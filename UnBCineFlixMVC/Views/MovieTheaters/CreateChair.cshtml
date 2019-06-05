@@ -4,37 +4,39 @@
     ViewData["Title"] = "CreateChair";
 }
 
+
 <h2>CreateChair</h2>
-<p></p>
-<p></p>
+
 <h4>Chair</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateChair">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="MovieTheaterNumber" />
-            <input type="hidden" asp-for="AddressCompanyId" />
+
             <div class="form-group">
                 <label asp-for="Row" class="control-label"></label>
                 <input asp-for="Row" class="form-control" />
                 <span asp-validation-for="Row" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Col" class="control-label"></label>
                 <input asp-for="Col" class="form-control" />
                 <span asp-validation-for="Col" class="text-danger"></span>
             </div>
-            <!-- 
+
             <div class="form-group">
-                <label asp-for="AddressCompanyId" class="control-label"></label>
-                <select asp-for="AddressCompanyId" class="form-control" asp-items="ViewBag.AddressCompanyId" ></select>
+                <!-- <label asp-for="MovieTheaterNumber" class="control-label"></label>-->
+                <input type="hidden" asp-for="MovieTheaterNumber" class="form-control" />
+                <span asp-validation-for="MovieTheaterNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MovieTheaterNumber" class="control-label"></label>
-                <select asp-for="MovieTheaterNumber" class="form-control" asp-items="ViewBag.MovieTheaterNumber" ></select>
+                <!-- <label asp-for="AddressCompanyId" class="control-label"></label>-->
+                <input type="hidden" asp-for="AddressCompanyId" class="form-control" />
+                <span asp-validation-for="AddressCompanyId" class="text-danger"></span>
             </div>
-            -->
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
