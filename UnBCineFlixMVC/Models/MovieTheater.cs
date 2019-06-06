@@ -26,6 +26,10 @@ namespace UnBCineFlix.Models
         /// Ligação externa do banco de dados <see cref="Chair"/> e <see cref="Session"/>
         /// </summary>
         private Chair[][] _arrayChair;
+        public Chair GetArrayChair(int row, int col)
+        {
+            return _arrayChair[row][col];
+        } 
         public IList<Chair> Chairs { get; set; }
         public IList<Session> Sessions { get; set; }
 
@@ -34,7 +38,7 @@ namespace UnBCineFlix.Models
             Chairs = new List<Chair>();
             Sessions = new List<Session>();
         }
-        public MovieTheater(int qtdRow, int qtdCol, IList<Chair> chairs = null)
+        public MovieTheater(int qtdRow, int qtdCol)
             : this()
         {
             QtdCol = qtdCol;
@@ -44,19 +48,14 @@ namespace UnBCineFlix.Models
             {
                 _arrayChair[i] = new Chair[qtdCol];
             }
-            if (chairs != null)
-            {
-                Chairs = chairs;
-                foreach (var c in chairs)
-                {
-                    AddChair(c);
-                }
-            }
         }
         public MovieTheater(MovieTheater movieTheater)
-            : this(qtdRow: movieTheater.QtdRow, qtdCol: movieTheater.QtdCol, chairs: movieTheater.Chairs)
+            : this(qtdRow: movieTheater.QtdRow, qtdCol: movieTheater.QtdCol)
         {
-
+            foreach (var c in movieTheater.Chairs)
+            {
+                _arrayChair[c.Row][c.Col] = c;
+            }
         }
         public void AddChair(int row, int col)
         {

@@ -36,5 +36,9 @@ namespace UnBCineFlix.Models
             Col = col;
             Status = status;
         }
+        public override string ToString()
+        {
+            return Status.ToString();
+        }
     }
 }

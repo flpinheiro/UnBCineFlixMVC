@@ -36,9 +36,9 @@ namespace UnBCineFlixMVC.Controllers
             //    return NotFound();
             //}
             ViewData["mensage"] = TempData["mensage"];
-            var movieTheater = await _context.MovieTheaters
-                .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
+            var movieTheater = new MovieTheater( await _context.MovieTheaters
+                .Include(m => m.Chairs).Include(m=>m.AddressCompany)
+                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId)));
             if (movieTheater == null)
             {
                 return NotFound();
@@ -115,7 +115,7 @@ namespace UnBCineFlixMVC.Controllers
                 {
                     TempData["erro"] = "Already exist, try another";
                     Debug.Write(e);
-                    return RedirectToAction(nameof(CreateChair));
+                    return RedirectToAction(nameof(CreateChair), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
                     //throw new DbUpdateConcurrencyException("Impossible to add this Movie Theater");
                 }
                 catch (DbUpdateException e)
@@ -123,7 +123,7 @@ namespace UnBCineFlixMVC.Controllers
                     Debug.Write(e);
                     TempData["erro"] = "Already exist, try another";
                     //throw new DbUpdateException("Impossible to save",e);
-                    return RedirectToAction(nameof(CreateChair));
+                    return RedirectToAction(nameof(CreateChair), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
                 }
                 TempData["mensage"] = "Chair Create Success";
                 return RedirectToAction(nameof(Details), new {chair.AddressCompanyId, chair.MovieTheaterNumber});
