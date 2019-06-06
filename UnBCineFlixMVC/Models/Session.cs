@@ -8,11 +8,11 @@ namespace UnBCineFlix.Models
 {
     public class Session
     {
-        public int AddressCompanyId { get; set; }//pk,fk
-        public int MovieTheaterNumber { get; set; }//pk,fk
-        //public int MovieTheaterId { get; set; }
+        public int Id { get; set; }//pk
+        public int? AddressCompanyId { get; set; }//fk
+        public int? MovieTheaterNumber { get; set; }//fk
         public MovieTheater MovieTheater { get; set; }
-        public int MovieId { get; set; }
+        public int? MovieId { get; set; }
         public Movie Movie { get; set; }
         [Display(Name = "Session Time")]
         public DateTime SessionTime { get; set; }//pk

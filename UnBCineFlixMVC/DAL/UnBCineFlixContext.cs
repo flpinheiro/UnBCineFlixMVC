@@ -51,8 +51,8 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<MovieTheater>().HasKey(mt => new { mt.AddressCompanyId, mt.MovieTheaterNumber });
             //primary key composta por id da sala de cinema e localização da coluna e fileira da cadeira
             modelBuilder.Entity<Chair>().HasKey(ch => new { ch.AddressCompanyId, ch.MovieTheaterNumber, ch.Row, ch.Col });
-            modelBuilder.Entity<Session>().HasKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber, s.SessionTime });
-            modelBuilder.Entity<Ticket>().HasKey(t => new { t.AddressCompanyId, t.MovieTheaterNumber, t.SessionTime, t.ChairRow, t.ChairCol });
+            modelBuilder.Entity<Session>().HasKey(s => s.Id);
+            modelBuilder.Entity<Ticket>().HasKey(t => new { t.SessionId, t.ChairRow, t.ChairCol });
             #endregion
 
             //foreign key setup space
@@ -75,11 +75,11 @@ namespace UnBCineFlix.DAL
 
             modelBuilder.Entity<Chair>().HasOne(ch => ch.MovieTheater).WithMany(mt => mt.Chairs).HasForeignKey(ch => new { ch.AddressCompanyId, ch.MovieTheaterNumber }).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Session>().HasOne(s => s.MovieTheater).WithMany(mt => mt.Sessions).HasForeignKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber }).IsRequired();
-            modelBuilder.Entity<Session>().HasOne(s => s.Movie).WithMany(m => m.Sessions).HasForeignKey(s => s.MovieId).IsRequired();
+            modelBuilder.Entity<Session>().HasOne(s => s.MovieTheater).WithMany(mt => mt.Sessions).HasForeignKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber });
+            modelBuilder.Entity<Session>().HasOne(s => s.Movie).WithMany(m => m.Sessions).HasForeignKey(s => s.MovieId);
 
-            //modelBuilder.Entity<Ticket>().HasOne(t => t.Session).WithMany(s => s.Tickets).HasForeignKey(t=> new { t.MovieTheaterNumber , t.SessionTime,t.AddressCompanyId}).IsRequired();
-            modelBuilder.Entity<Session>().HasMany(s => s.Tickets).WithOne(t => t.Session).HasPrincipalKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber, s.SessionTime }).HasConstraintName("fk_Ticket");
+            modelBuilder.Entity<Ticket>().HasOne(t => t.Session).WithMany(s => s.Tickets).HasForeignKey(t=> t.SessionId).IsRequired();
+            //modelBuilder.Entity<Session>().HasMany(s => s.Tickets).WithOne(t => t.Session).HasPrincipalKey(s => new { s.AddressCompanyId, s.MovieTheaterNumber, s.SessionTime }).HasConstraintName("fk_Ticket");
             //modelBuilder.Entity<Ticket>().HasOne(t => t.Chair).WithMany(ch=>ch.Tickets).IsRequired();
             #endregion
 
@@ -178,11 +178,11 @@ namespace UnBCineFlix.DAL
                 new GenreMovie { MovieId = 3, GenreId = 1 }
                 );
             modelBuilder.Entity<Session>().HasData(
-                new Session { AddressCompanyId = 1, SessionTime = DateTime.Today.AddDays(3), MovieId = 3, MovieTheaterNumber = 1 }
+                new Session { AddressCompanyId = 1, SessionTime = DateTime.Today.AddDays(3), MovieId = 3, MovieTheaterNumber = 1 , Id = 1}
                 );
 
             modelBuilder.Entity<Ticket>().HasData(
-                new Ticket { MovieTheaterNumber = 1, AddressCompanyId = 1, SessionTime = DateTime.Today.AddDays(3), ChairCol = 4, ChairRow = 5, Value = 10 }
+                new Ticket { SessionId = 1, ChairCol = 4, ChairRow = 5, Value = 10 }
                 );
             #endregion
         }

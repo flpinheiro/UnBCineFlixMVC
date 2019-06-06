@@ -15,9 +15,9 @@ namespace UnBCineFlixMVC
     {
         public static void Main(string[] args)
         {
-            //var context = new UnBCineFlixContext();
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
+            var context = new UnBCineFlixContext();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
             CreateWebHostBuilder(args).Build().Run();
         }
