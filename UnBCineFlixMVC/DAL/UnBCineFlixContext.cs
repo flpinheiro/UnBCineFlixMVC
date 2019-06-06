@@ -90,6 +90,7 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<MovieTheater>().Property<int>("QtdCol").IsRequired();
             #endregion
 
+            //Herança
             #region heritage
             modelBuilder.Entity<Customer>().HasBaseType<Person>();
             modelBuilder.Entity<Employee>().HasBaseType<Person>();
@@ -194,5 +195,7 @@ namespace UnBCineFlix.DAL
                 optionsBuilder.UseMySQL("Server=localhost;DataBase=unbcineflix;Uid=root;Pwd=@VTQpZGC8*qkj$uu");
             }
         }
+
+        public DbSet<UnBCineFlix.Models.Session> Session { get; set; }
     }
 }
