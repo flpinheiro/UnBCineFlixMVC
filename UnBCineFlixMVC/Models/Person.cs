@@ -20,7 +20,7 @@ namespace UnBCineFlix.Models
         /// <summary>
         /// Ligação externa com o banco de dados <see cref="Address"/> e <see cref="Phone"/>
         /// </summary>
-        public IList<Address> Addresses { get; set; }
+        public IList<AddressPerson> Addresses { get; set; }
         public IList<Phone> Phones { get; set; }
     }
 }

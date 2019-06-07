@@ -10,6 +10,7 @@ namespace UnBCineFlix.DAL
     {
         public DbSet<Address> Addresses { get; set; }
         public DbSet<AddressCompany> AddressCompanies { get; set; }
+        public DbSet<AddressPerson> AddressPeople { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<ArtistMovie> ArtistMovies { get; set; }
         public DbSet<Chair> Chairs { get; set; }
@@ -28,7 +29,6 @@ namespace UnBCineFlix.DAL
 
         public UnBCineFlixContext()
         {
-
         }
         public UnBCineFlixContext(DbContextOptions<UnBCineFlixContext> option)
     : base(option)
@@ -39,7 +39,8 @@ namespace UnBCineFlix.DAL
             //Primary Key setup space
             #region pk
             modelBuilder.Entity<Address>().HasKey(a => a.Id);
-            modelBuilder.Entity<AddressCompany>().HasKey(ac => ac.Id);
+            //modelBuilder.Entity<AddressCompany>().HasKey(ac => ac.Id);
+            //modelBuilder.Entity<AddressPerson>().HasKey(ap=>ap.Id);
             modelBuilder.Entity<Person>().HasKey(p => p.Id);
             modelBuilder.Entity<Phone>().HasKey(ph => ph.Id);
             modelBuilder.Entity<Rating>().HasKey(r => r.Id);
@@ -57,7 +58,7 @@ namespace UnBCineFlix.DAL
 
             //foreign key setup space
             #region fk
-            modelBuilder.Entity<Address>().HasOne(a => a.Person).WithMany(p => p.Addresses).HasForeignKey(a => a.PersonId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<AddressPerson>().HasOne(a => a.Person).WithMany(p => p.Addresses).HasForeignKey(a => a.PersonId).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Phone>().HasOne(ph => ph.Person).WithMany(p => p.Phones).HasForeignKey(p => p.PersonId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AddressCompany>().HasOne(a => a.Company).WithMany(c => c.Addresses).HasForeignKey(ac => ac.CompanyId).OnDelete(DeleteBehavior.Cascade);
@@ -94,6 +95,9 @@ namespace UnBCineFlix.DAL
             #region heritage
             modelBuilder.Entity<Customer>().HasBaseType<Person>();
             modelBuilder.Entity<Employee>().HasBaseType<Person>();
+
+            modelBuilder.Entity<AddressCompany>(ac => { ac.HasBaseType<Address>(); });
+            modelBuilder.Entity<AddressPerson>(ac => { ac.HasBaseType<Address>(); });
             #endregion
 
             //Seeding the DataBase
@@ -132,9 +136,9 @@ namespace UnBCineFlix.DAL
                 new Employee { Id = 3, FirstName = "Dovakin", LastName = "Alcantara", BirthDay = new DateTime(1911, 11, 11), CPF = "000.000.000-00", Cod = 123456, PassE = "12" }
             );
 
-            modelBuilder.Entity<Address>().HasData(
-                new Address { Id = 1, City = "brasilia", District = "Asa Sul", Street = "sql", Number = 42, Complement = null, Country = "Brasil", State = "DF", ZipCode = 7000000, PersonId = 1 },
-                new Address { Id = 2, City = "brasilia", District = "Asa norte", Street = "Campus Darcy Ribeiro", Number = 0, Complement = "ICC Norte", Country = "Brasil", State = "DF", ZipCode = 70000000, PersonId = 2 }
+            modelBuilder.Entity<AddressPerson>().HasData(
+                new AddressPerson { Id = 3, City = "brasilia", District = "Asa Sul", Street = "sql", Number = 42, Complement = null, Country = "Brasil", State = "DF", ZipCode = 7000000, PersonId = 1 },
+                new AddressPerson { Id = 2, City = "brasilia", District = "Asa norte", Street = "Campus Darcy Ribeiro", Number = 0, Complement = "ICC Norte", Country = "Brasil", State = "DF", ZipCode = 70000000, PersonId = 2 }
             );
 
             modelBuilder.Entity<Phone>().HasData(

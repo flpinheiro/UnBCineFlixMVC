@@ -9,7 +9,7 @@ namespace UnBCineFlix.Models
     /// <summary>
     /// Classe endereco: define o endereço de uma pessoa.
     /// </summary>
-    public class Address
+    public abstract class Address
     {
         public int Id { get; set; }
 
@@ -65,10 +65,13 @@ namespace UnBCineFlix.Models
         [MaxLength(255)]
         public string Complement { get; set; }
 
-        /// <summary>
-        /// Chave estrangeira do banco de dados referecia <see cref="Person"/>
-        /// </summary>
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
+        public override string ToString()
+        {
+            var ret = new StringBuilder();
+            ret.AppendLine($"Country: {Country}");
+            ret.AppendLine($"City: {City}");
+            ret.Append($"District: {District}");
+            return base.ToString();
+        }
     }
 }

@@ -19,11 +19,6 @@
             
             </summary>
         </member>
-        <member name="P:UnBCineFlix.Models.Address.PersonId">
-            <summary>
-            Chave estrangeira do banco de dados referecia <see cref="P:UnBCineFlix.Models.Address.Person"/>
-            </summary>
-        </member>
         <member name="T:UnBCineFlix.Models.AddressCompany">
             <summary>
             Define o endereço de uma Empresa
@@ -38,6 +33,11 @@
             <summary>
             Conjunto de Ligações externas
             <see cref="T:UnBCineFlix.Models.Phone"/> e <see cref="T:UnBCineFlix.Models.MovieTheater"/>
+            </summary>
+        </member>
+        <member name="P:UnBCineFlix.Models.AddressPerson.PersonId">
+            <summary>
+            Chave estrangeira do banco de dados referecia <see cref="P:UnBCineFlix.Models.AddressPerson.Person"/>
             </summary>
         </member>
         <member name="P:UnBCineFlix.Models.Artist.Movies">
