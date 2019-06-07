@@ -46,15 +46,18 @@
 <table>
     @for (int i = 0; i < Model.QtdRow; i++)
     {
-        <tr>
+        <tr style="height:36px;">
             @for (int j = 0; j < Model.QtdCol; j++)
             {
-                <td>
-                    @if (Model.GetArrayChair(i, j) != null)
+            <td style="width:70px;">
+                @if (Model.GetArrayChair(i, j) != null)
+                {
+                    if (Model.GetArrayChair(i, j).Status == false)
                     {
-                        @Model.GetArrayChair(i, j).ToString()
+                        <i class="fas fa-couch" style="font-size:36px;"><br/>  @((char)(i+65))@(j+1) </i>
                     }
-                </td>
+                }
+            </td>
             }
         </tr>
     }

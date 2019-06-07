@@ -90,7 +90,7 @@ namespace UnBCineFlixMVC.Controllers
             return View(movieTheater);
         }
 
-        public async Task<IActionResult> CreateChair()
+        public async Task<IActionResult> CreateChair(int addressCompanyId, int movieTheaterNumber)
         {
             ViewData["erro"] = TempData["erro"];
             ViewData["mensage"] = TempData["mensage"];
