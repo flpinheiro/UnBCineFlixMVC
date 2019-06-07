@@ -53,7 +53,8 @@ namespace UnBCineFlixMVC.Controllers
         public IActionResult Create()
         {
             ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Title");
-            ViewData["AddressCompanyId"] = new SelectList(_context.MovieTheaters, "AddressCompanyId", "AddressCompanyId");
+            ViewData["AddressCompanyId"] = new SelectList(_context.AddressCompanies, "Id", "Name");
+            ViewData["MovieTheaterNumber"] = new SelectList(_context.MovieTheaters, "MovieTheaterNumber", "MovieTheaterNumber");
             return View();
         }
 
@@ -89,7 +90,8 @@ namespace UnBCineFlixMVC.Controllers
                 return NotFound();
             }
             ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Title", session.MovieId);
-            ViewData["AddressCompanyId"] = new SelectList(_context.MovieTheaters, "AddressCompanyId", "AddressCompanyId", session.AddressCompanyId);
+            ViewData["AddressCompanyId"] = new SelectList(_context.AddressCompanies, "Id", "Name");
+            ViewData["MovieTheaterNumber"] = new SelectList(_context.MovieTheaters, "MovieTheaterNumber", "MovieTheaterNumber");
             return View(session);
         }
 

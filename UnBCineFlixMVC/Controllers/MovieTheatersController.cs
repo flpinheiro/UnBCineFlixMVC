@@ -36,8 +36,9 @@ namespace UnBCineFlixMVC.Controllers
             //    return NotFound();
             //}
             ViewData["mensage"] = TempData["mensage"];
-            var movieTheater = new MovieTheater( await _context.MovieTheaters
-                .Include(m => m.Chairs).Include(m=>m.AddressCompany)
+            var movieTheater = new MovieTheater(await _context.MovieTheaters
+                .Include(m => m.Chairs)
+                .Include(m => m.AddressCompany)
                 .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId)));
             if (movieTheater == null)
             {
@@ -106,8 +107,8 @@ namespace UnBCineFlixMVC.Controllers
                 {
                     var movieTheater = new MovieTheater(await _context.MovieTheaters
                         .Include(m => m.Chairs)
-                        .FirstOrDefaultAsync(m=> (m.AddressCompanyId == chair.AddressCompanyId && m.MovieTheaterNumber == chair.MovieTheaterNumber)));
-                    movieTheater.AddChair(chair) ;
+                        .FirstOrDefaultAsync(m => (m.AddressCompanyId == chair.AddressCompanyId && m.MovieTheaterNumber == chair.MovieTheaterNumber)));
+                    movieTheater.AddChair(chair);
                     _context.Add(chair);
                     await _context.SaveChangesAsync();
                 }
@@ -125,8 +126,15 @@ namespace UnBCineFlixMVC.Controllers
                     //throw new DbUpdateException("Impossible to save",e);
                     return RedirectToAction(nameof(CreateChair), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
                 }
+                catch (ArgumentException e)
+                {
+                    Debug.Write(e);
+                    TempData["erro"] = e.Message;
+                    //throw new DbUpdateException("Impossible to save",e);
+                    return RedirectToAction(nameof(CreateChair), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
+                }
                 TempData["mensage"] = "Chair Create Success";
-                return RedirectToAction(nameof(Details), new {chair.AddressCompanyId, chair.MovieTheaterNumber});
+                return RedirectToAction(nameof(Details), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
             }
             //ViewData["AddressCompanyId"] = new SelectList(_context.AddressCompanies, "Id", "Name", movieTheater.AddressCompanyId);
             return View();

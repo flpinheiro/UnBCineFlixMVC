@@ -102,9 +102,9 @@
         </member>
         <member name="M:UnBCineFlix.Models.MovieTheater.AddChair(UnBCineFlix.Models.Chair)">
             <summary>
-            
+            Adiciona uma cadeira ao MovieTheater
             </summary>
-            <param name="chair"></param>
+            <param name="chair">Recebe UM Chair</param>
             <exception cref="T:System.ArgumentOutOfRangeException">Se a numeração da cadeira for maior do que o tamanho da sala essa exceção é lançada</exception>
             <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateException">Caso a cadeira já exista no sistema a exceção é lançada.</exception>
         </member>

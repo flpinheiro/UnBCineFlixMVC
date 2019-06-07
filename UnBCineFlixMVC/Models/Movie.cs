@@ -42,5 +42,9 @@ namespace UnBCineFlix.Models
             Sessions = new List<Session>();
             GenreMovies = new List<GenreMovie>();
         }
+        public string DurationToString()
+        {
+            return $"{Duration/60}h{Duration%60}";
+        }
     }
 }

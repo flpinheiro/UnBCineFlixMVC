@@ -52,6 +52,10 @@ namespace UnBCineFlix.Models
         public MovieTheater(MovieTheater movieTheater)
             : this(qtdRow: movieTheater.QtdRow, qtdCol: movieTheater.QtdCol)
         {
+            AddressCompanyId = movieTheater.AddressCompanyId;
+            AddressCompany = movieTheater.AddressCompany;
+            Chairs = movieTheater.Chairs;
+            MovieTheaterNumber = movieTheater.MovieTheaterNumber;
             foreach (var c in movieTheater.Chairs)
             {
                 _arrayChair[c.Row][c.Col] = c;
@@ -62,9 +66,9 @@ namespace UnBCineFlix.Models
             AddChair(new Chair(row, col));
         }
         /// <summary>
-        /// 
+        /// Adiciona uma cadeira ao MovieTheater
         /// </summary>
-        /// <param name="chair"></param>
+        /// <param name="chair">Recebe UM Chair</param>
         /// <exception cref="ArgumentOutOfRangeException">Se a numeração da cadeira for maior do que o tamanho da sala essa exceção é lançada</exception>
         /// <exception cref="DbUpdateException">Caso a cadeira já exista no sistema a exceção é lançada.</exception>
         public void AddChair(Chair chair)

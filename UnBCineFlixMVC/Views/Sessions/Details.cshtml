@@ -38,8 +38,7 @@
             @Html.DisplayNameFor(model => model.Movie.Duration)
         </dt>
         <dd>
-            <!---->
-            @Html.DisplayFor(model => model.Movie.Duration)
+            @Model.Movie.DurationToString()
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.SessionTime)

@@ -9,10 +9,39 @@ namespace UnBCineFlix.Models
 {
     public class Chair
     {
+        private int _row;
         [Required]
-        public int Row { get; set; }//pk
+        public int Row
+        {
+            get
+            {
+                return _row;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Row must be bigger than zero");
+                else
+                    _row = value;
+            }
+        }//pk
+        private int _col;
         [Required]
-        public int Col { get; set; }//pk
+        public int Col
+        {
+            get
+            {
+                return _col;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Col must be bigger than zero");
+                else
+                    _col = value;
+            }
+        }//pk
+
         [NotMapped]
         public bool Status { get; set; }
 
