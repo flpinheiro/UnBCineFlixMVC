@@ -8,9 +8,12 @@ namespace UnBCineFlix.Models
     public class Phone
     {
         public int Id { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int CountryCode { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int AreaCode { get; set; }
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Number { get; set; }
 
         /// <summary>

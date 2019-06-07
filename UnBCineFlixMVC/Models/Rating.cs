@@ -11,6 +11,7 @@ namespace UnBCineFlix.Models
         [Required, MaxLength(100), Display(Name= "Movie Rating")]
         public string Name { get; set; }
         [Required , Display(Name = "Minimum Age Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Age { get; set; }
         /// <summary>
         /// ligação externa com o banco de dados <see cref="Movie"/>

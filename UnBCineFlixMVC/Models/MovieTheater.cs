@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,11 +11,61 @@ namespace UnBCineFlix.Models
     public class MovieTheater
     {
         //public int Id { get; set; }
-        public int MovieTheaterNumber { get; set; }
+
+        private int _number;
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
+        [Display(Name = "Movie Theater Number")]
+        public int MovieTheaterNumber
+        {
+            get
+            {
+                return _number;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("The number of the movie Theater must be bigger than zero");
+                else
+                    _number = value;
+            }
+
+        }
+        private int _row;
         [Required]
-        public int QtdRow { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
+        [Display(Name = "Maximum quantities of Rows")]
+        public int QtdRow
+        {
+            get
+            {
+                return _row;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("The Quantity of Rows must be bigger than zero");
+                else
+                    _row = value;
+            }
+        }
+        private int _col;
         [Required]
-        public int QtdCol { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
+        [Display(Name = "Maximum quantities of Columns")]
+        public int QtdCol
+        {
+            get
+            {
+                return _col;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("The quantity of Columns must must be bigger than zero");
+                else
+                    _col = value;
+            }
+        }
 
         /// <summary>
         /// Chave estrangeira do banco de dados <see cref="AddressCompany"/>
@@ -25,6 +76,7 @@ namespace UnBCineFlix.Models
         /// <summary>
         /// Ligação externa do banco de dados <see cref="Chair"/> e <see cref="Session"/>
         /// </summary>
+        [NotMapped]
         private Chair[][] _arrayChair;
         public Chair GetArrayChair(int row, int col)
         {
@@ -33,7 +85,7 @@ namespace UnBCineFlix.Models
         public IList<Chair> Chairs { get; set; }
         public IList<Session> Sessions { get; set; }
 
-        private MovieTheater()
+        public MovieTheater()
         {
             Chairs = new List<Chair>();
             Sessions = new List<Session>();
@@ -56,6 +108,7 @@ namespace UnBCineFlix.Models
             AddressCompany = movieTheater.AddressCompany;
             Chairs = movieTheater.Chairs;
             MovieTheaterNumber = movieTheater.MovieTheaterNumber;
+            Sessions = movieTheater.Sessions;
             foreach (var c in movieTheater.Chairs)
             {
                 _arrayChair[c.Row][c.Col] = c;
@@ -84,16 +137,8 @@ namespace UnBCineFlix.Models
             }
             else
             {
-                throw new DbUpdateException("Já existe essa cadeira.", new ArgumentException());
+                throw new DbUpdateException($"Chair ({chair.Row},{chair.Col}) already exist, Try another", new ArgumentException());
             }
         }
-
-        //public void AddChair(IList<Chair> chairs)
-        //{
-        //    foreach (var c in chairs)
-        //    {
-        //        AddChair(c);
-        //    }
-        //}
     }
 }

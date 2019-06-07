@@ -112,25 +112,16 @@ namespace UnBCineFlixMVC.Controllers
                     _context.Add(chair);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException e)
-                {
-                    TempData["erro"] = "Already exist, try another";
-                    Debug.Write(e);
-                    return RedirectToAction(nameof(CreateChair), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
-                    //throw new DbUpdateConcurrencyException("Impossible to add this Movie Theater");
-                }
                 catch (DbUpdateException e)
                 {
                     Debug.Write(e);
-                    TempData["erro"] = "Already exist, try another";
-                    //throw new DbUpdateException("Impossible to save",e);
+                    TempData["erro"] = e.Message;
                     return RedirectToAction(nameof(CreateChair), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
                 }
                 catch (ArgumentException e)
                 {
                     Debug.Write(e);
                     TempData["erro"] = e.Message;
-                    //throw new DbUpdateException("Impossible to save",e);
                     return RedirectToAction(nameof(CreateChair), new { chair.AddressCompanyId, chair.MovieTheaterNumber });
                 }
                 TempData["mensage"] = "Chair Create Success";

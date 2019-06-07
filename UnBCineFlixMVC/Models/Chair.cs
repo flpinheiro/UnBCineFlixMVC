@@ -11,6 +11,7 @@ namespace UnBCineFlix.Models
     {
         private int _row;
         [Required]
+        [Range(0, int.MaxValue,ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Row
         {
             get
@@ -27,6 +28,7 @@ namespace UnBCineFlix.Models
         }//pk
         private int _col;
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Col
         {
             get

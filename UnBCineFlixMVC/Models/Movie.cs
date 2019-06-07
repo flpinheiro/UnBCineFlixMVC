@@ -13,6 +13,7 @@ namespace UnBCineFlix.Models
         [Required, MaxLength(100), Display(Name = "Movie Title")]
         public string Title { get; set; }
         [Display(Name = "Movie Duration")]
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Duration { get; set; }
         [Display(Name = "Release Date"),DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }

@@ -10,6 +10,7 @@ namespace UnBCineFlix.Models
     public class Ticket
     {
         [Required, DataType(DataType.Currency),Display(Name = "Ticket Value Paid")]
+        [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public decimal Value { get; set; }
 //        [Display(Name = "Session Hour")]
 //        public DateTime SessionTime { get; set; }//pk,fk
