@@ -11,41 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MovieTheater.AddressCompany.Company.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MovieTheater.AddressCompany.Company.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MovieTheater.AddressCompany.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MovieTheater.AddressCompany.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MovieTheaterNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MovieTheaterNumber)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Movie)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Movie.Title)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Movie.Duration)
-        </dt>
-        <dd>
-            @Model.Movie.DurationToString()
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SessionTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SessionTime)
-        </dd>
+        @{
+            await Html.RenderPartialAsync("../Sessions/_Details", Model);
+        }
     </dl>
 </div>
 <div>

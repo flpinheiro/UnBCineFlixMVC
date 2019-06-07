@@ -29,22 +29,17 @@
             @Html.DisplayFor(model => model.Url)
         </dd>
     </dl>
-    @if (Model.Addresses != null)
-    {
-        <dl>
-            <dt>@Html.DisplayNameFor(model => model.Addresses)</dt>
-            @foreach (var item in Model.Addresses)
-            {
-                <dd>@Html.DisplayFor(modelItem => item.City) - @Html.DisplayFor(modelItem => item.State) / @Html.DisplayFor(modelItem => item.Country)</dd>
-                <dd>@Html.DisplayFor(modelItem => item.Street), @Html.DisplayFor(modelItem => item.Number)</dd>
-                <dd>@Html.DisplayFor(modelItem => item.District)</dd>
-                <dd>@Html.DisplayFor(modelItem => item.Complement)</dd>
-                <dd>Zip Code @Html.DisplayFor(modelItem => item.ZipCode)</dd>
-            }
-        </dl>
-    }
-
 </div>
+
+@if (Model.Addresses != null)
+{
+    foreach (var item in Model.Addresses)
+    {
+        <hr />
+        <h4>@Html.DisplayFor(modelItem=>item.Name)</h4>
+            await Html.RenderPartialAsync("../Address/_Details", item);
+    }
+}
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

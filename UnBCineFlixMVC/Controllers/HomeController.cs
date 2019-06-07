@@ -24,7 +24,7 @@ namespace UnBCineFlixMVC.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Contact us.";
 
             return View();
         }

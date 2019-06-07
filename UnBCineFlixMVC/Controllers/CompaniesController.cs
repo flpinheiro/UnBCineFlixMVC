@@ -36,6 +36,7 @@ namespace UnBCineFlixMVC.Controllers
             }
 
             var company = await _context.Companies
+                .Include(m=>m.Addresses)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (company == null)
             {

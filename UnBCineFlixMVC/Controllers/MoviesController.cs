@@ -36,7 +36,16 @@ namespace UnBCineFlixMVC.Controllers
 
             var movie = await _context.Movies
                 .Include(m => m.Rating)
+                .Include(m => m.Sessions)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            foreach (var s in movie.Sessions)
+            {
+                s.MovieTheater = new MovieTheater(await _context.MovieTheaters
+                    //.Include(m => m.Chairs)
+                    .Include(m => m.AddressCompany)
+                    .ThenInclude(a=>a.Company)
+                    .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == s.MovieTheaterNumber && m.AddressCompanyId == s.AddressCompanyId)));
+            }
             if (movie == null)
             {
                 return NotFound();

@@ -34,6 +34,7 @@ namespace UnBCineFlixMVC.Controllers
             }
 
             var customer = await _context.Customers
+                .Include(c=>c.Addresses)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
