@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,7 +22,15 @@ namespace UnBCineFlix.Models
 
         public int SessionId { get; set; }
         public Session Session { get; set; }
-        //public Chair Chair { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+
+            if (!(obj is Ticket ticket)) return false;
+
+            return ticket.ChairRow == ChairRow && ticket.ChairCol == ChairCol && ticket.SessionId==SessionId;
+        }
 
     }
 }

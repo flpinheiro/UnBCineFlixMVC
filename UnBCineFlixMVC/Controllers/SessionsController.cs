@@ -38,8 +38,12 @@ namespace UnBCineFlixMVC.Controllers
             }
 
             var session = await _context.Session
+                .Include(s => s.Tickets)
                 .Include(s => s.Movie)
-                .Include(s => s.MovieTheater).ThenInclude(mt=>mt.AddressCompany).ThenInclude(ac=>ac.Company)
+                .Include(s => s.MovieTheater)
+                    .ThenInclude(mt=>mt.Chairs)
+                .Include(s=>s.MovieTheater)
+                    .ThenInclude(mt=>mt.AddressCompany).ThenInclude(ac=>ac.Company)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (session == null)
             {
