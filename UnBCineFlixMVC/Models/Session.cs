@@ -14,7 +14,7 @@ namespace UnBCineFlix.Models
         [Display(Name = "Movie Theater Number")]
         public int? MovieTheaterNumber { get; set; }//fk
         public MovieTheater MovieTheater { get; set; }
-        public int? MovieId { get; set; }
+        public int MovieId { get; set; }
         public Movie Movie { get; set; }
 
         [Display(Name = "Session Time"), DataType(DataType.DateTime)]
@@ -41,7 +41,7 @@ namespace UnBCineFlix.Models
             Tickets = session.Tickets;
             foreach (var ticket in Tickets)
             {
-                BuyTickets(ticket);
+               CheckTickets(ticket);
             }
         }
         public string DurationToTime(int duration)
@@ -49,7 +49,7 @@ namespace UnBCineFlix.Models
             return  $"{duration / 60}H{duration % 60}min";
         }
 
-        private void BuyTickets(Ticket ticket)
+        private void CheckTickets(Ticket ticket)
         {
             if (!Tickets.Contains(ticket))
             {

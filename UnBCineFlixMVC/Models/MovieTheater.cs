@@ -73,18 +73,22 @@ namespace UnBCineFlix.Models
         public int AddressCompanyId { get; set; }
         public AddressCompany AddressCompany { get; set; }
 
-        /// <summary>
-        /// Ligação externa do banco de dados <see cref="Chair"/> e <see cref="Session"/>
-        /// </summary>
+
         [NotMapped]
         private Chair[][] _arrayChair;
         public Chair GetArrayChair(int row, int col)
         {
             return _arrayChair[row][col];
-        } 
-        public IList<Chair> Chairs { get; set; }
-        public IList<Session> Sessions { get; set; }
+        }
 
+        /// <summary>
+        /// Ligação externa do banco de dados <see cref="Session"/>
+        /// </summary>public IList<Chair> Chairs { get; set; }
+        public IList<Session> Sessions { get; set; }
+        /// <summary>
+        /// Ligação externa do banco de dados <see cref="Chair"/>
+        /// </summary>
+        public IList<Chair> Chairs { get; set; }
         public MovieTheater()
         {
             Chairs = new List<Chair>();

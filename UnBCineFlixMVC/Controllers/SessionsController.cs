@@ -22,10 +22,10 @@ namespace UnBCineFlixMVC.Controllers
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            var unBCineFlixContext = 
+            var unBCineFlixContext =
                 _context.Session.
                 Include(s => s.Movie).
-                Include(s => s.MovieTheater).ThenInclude(mt=>mt.AddressCompany).ThenInclude(ac=>ac.Company);
+                Include(s => s.MovieTheater).ThenInclude(mt => mt.AddressCompany).ThenInclude(ac => ac.Company);
             return View(await unBCineFlixContext.ToListAsync());
         }
 
@@ -41,9 +41,9 @@ namespace UnBCineFlixMVC.Controllers
                 .Include(s => s.Tickets)
                 .Include(s => s.Movie)
                 .Include(s => s.MovieTheater)
-                    .ThenInclude(mt=>mt.Chairs)
-                .Include(s=>s.MovieTheater)
-                    .ThenInclude(mt=>mt.AddressCompany).ThenInclude(ac=>ac.Company)
+                    .ThenInclude(mt => mt.Chairs)
+                .Include(s => s.MovieTheater)
+                    .ThenInclude(mt => mt.AddressCompany).ThenInclude(ac => ac.Company)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (session == null)
             {
@@ -145,9 +145,7 @@ namespace UnBCineFlixMVC.Controllers
             }
 
             var session = await _context.Session
-                //.Include(s => s.Movie)
-                //.Include(s => s.MovieTheater)
-                .Include(s=>s.Tickets)
+                .Include(s => s.Tickets)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (session == null)
             {
@@ -171,6 +169,40 @@ namespace UnBCineFlixMVC.Controllers
         private bool SessionExists(int id)
         {
             return _context.Session.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> BuyTicket(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var session = new Session(
+                await _context.Session
+                .Include(s => s.Tickets)
+                .Include(s => s.Movie)
+                .Include(s => s.MovieTheater)
+                    .ThenInclude(mt => mt.Chairs)
+                .Include(s => s.MovieTheater)
+                    .ThenInclude(mt => mt.AddressCompany).ThenInclude(ac => ac.Company)
+                .FirstOrDefaultAsync(m => m.Id == id));
+            if (session == null)
+            {
+                return NotFound();
+            }
+
+            return View(session);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BuyTicket([Bind(" ")] Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View();
         }
     }
 }

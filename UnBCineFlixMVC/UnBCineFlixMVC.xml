@@ -95,9 +95,10 @@
             Chave estrangeira do banco de dados <see cref="P:UnBCineFlix.Models.MovieTheater.AddressCompany"/>
             </summary>
         </member>
-        <member name="F:UnBCineFlix.Models.MovieTheater._arrayChair">
+        <! -- Comentário XML mal formado ignorado para o membro "P:UnBCineFlix.Models.MovieTheater.Sessions" -->
+        <member name="P:UnBCineFlix.Models.MovieTheater.Chairs">
             <summary>
-            Ligação externa do banco de dados <see cref="T:UnBCineFlix.Models.Chair"/> e <see cref="T:UnBCineFlix.Models.Session"/>
+            Ligação externa do banco de dados <see cref="T:UnBCineFlix.Models.Chair"/>
             </summary>
         </member>
         <member name="M:UnBCineFlix.Models.MovieTheater.AddChair(UnBCineFlix.Models.Chair)">

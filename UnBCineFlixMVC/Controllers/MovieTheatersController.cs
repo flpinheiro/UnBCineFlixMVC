@@ -31,10 +31,6 @@ namespace UnBCineFlixMVC.Controllers
         // GET: MovieTheaters/Details/5
         public async Task<IActionResult> Details(int addressCompanyId, int movieTheaterNumber)
         {
-            //if (addressCompanyId == null)
-            //{
-            //    return NotFound();
-            //}
             ViewData["mensage"] = TempData["mensage"];
             var movieTheater = new MovieTheater(await _context.MovieTheaters
                 .Include(m => m.Chairs)
@@ -74,13 +70,11 @@ namespace UnBCineFlixMVC.Controllers
                 {
                     Debug.Write(e);
                     return RedirectToAction(nameof(Create));
-                    //throw new DbUpdateConcurrencyException("Impossible to add this Movie Theater");
                 }
                 catch (DbUpdateException e)
                 {
                     Debug.Write(e);
                     TempData["erro"] = "Already exist, try another";
-                    //throw new DbUpdateException("Impossible to save",e);
                     return RedirectToAction(nameof(Create));
                 }
 
@@ -92,6 +86,12 @@ namespace UnBCineFlixMVC.Controllers
 
         public async Task<IActionResult> CreateChair(int addressCompanyId, int movieTheaterNumber)
         {
+            var movieTheater = await _context.MovieTheaters
+                .FirstOrDefaultAsync(m=>(m.MovieTheaterNumber==movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
+            if (movieTheater == null)
+            {
+                return NotFound();
+            }
             ViewData["erro"] = TempData["erro"];
             ViewData["mensage"] = TempData["mensage"];
             return View();
@@ -134,11 +134,6 @@ namespace UnBCineFlixMVC.Controllers
         // GET: MovieTheaters/Edit/5
         public async Task<IActionResult> Edit(int addressCompanyId, int movieTheaterNumber)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
                 .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
@@ -189,14 +184,9 @@ namespace UnBCineFlixMVC.Controllers
         // GET: MovieTheaters/Delete/5
         public async Task<IActionResult> Delete(int addressCompanyId, int? movieTheaterNumber)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
+                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
             if (movieTheater == null)
             {
                 return NotFound();
@@ -212,7 +202,7 @@ namespace UnBCineFlixMVC.Controllers
         {
             var movieTheater = await _context.MovieTheaters
                 .Include(m => m.AddressCompany)
-                .FirstOrDefaultAsync(m => m.MovieTheaterNumber == movieTheaterNumber);
+                .FirstOrDefaultAsync(m => (m.MovieTheaterNumber == movieTheaterNumber && m.AddressCompanyId == addressCompanyId));
             _context.MovieTheaters.Remove(movieTheater);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -220,7 +210,7 @@ namespace UnBCineFlixMVC.Controllers
 
         private bool MovieTheaterExists(int addressCompanyId, int movieTheaterNumber)
         {
-            return _context.MovieTheaters.Any(e => (e.MovieTheaterNumber == movieTheaterNumber));
+            return _context.MovieTheaters.Any(e => (e.MovieTheaterNumber == movieTheaterNumber && e.AddressCompanyId == addressCompanyId));
         }
 
 
