@@ -34,15 +34,12 @@ namespace UnBCineFlix.Models
             Id = session.Id;
             AddressCompanyId = session.AddressCompanyId;
             MovieTheaterNumber = session.MovieTheaterNumber;
-            MovieTheater = session.MovieTheater;
+            MovieTheater = new MovieTheater( session.MovieTheater);
             MovieId = session.MovieId;
             Movie = session.Movie;
             SessionTime = session.SessionTime;
             Tickets = session.Tickets;
-            foreach (var ticket in Tickets)
-            {
-               CheckTickets(ticket);
-            }
+            MovieTheater.CheckChairs(session.Tickets);
         }
         public string DurationToTime(int duration)
         {

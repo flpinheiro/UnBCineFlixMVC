@@ -195,6 +195,20 @@ namespace UnBCineFlixMVC.Controllers
             return View(movieTheater);
         }
 
+        public async Task<IActionResult> DeleteChair(int addressCompanyId, int? movieTheaterNumber, int row, int col)
+        {
+            var chair = _context.Chairs
+                .FirstOrDefault(c=> 
+                (c.AddressCompanyId == addressCompanyId && 
+                c.MovieTheaterNumber == movieTheaterNumber && 
+                c.Row == row && c.Col == col));
+            if (chair == null)
+            {
+                return NotFound();
+            }
+            return View(chair);
+        }
+
         // POST: MovieTheaters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -208,6 +222,19 @@ namespace UnBCineFlixMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost, ActionName("DeleteChair")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteChairConfirmed(int addressCompanyId, int movieTheaterNumber, int row, int col)
+        {
+            var chair = _context.Chairs
+                .FirstOrDefault(c =>
+                (c.AddressCompanyId == addressCompanyId &&
+                c.MovieTheaterNumber == movieTheaterNumber &&
+                c.Row == row && c.Col == col));
+            _context.Chairs.Remove(chair);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { addressCompanyId, movieTheaterNumber });
+        }
         private bool MovieTheaterExists(int addressCompanyId, int movieTheaterNumber)
         {
             return _context.MovieTheaters.Any(e => (e.MovieTheaterNumber == movieTheaterNumber && e.AddressCompanyId == addressCompanyId));

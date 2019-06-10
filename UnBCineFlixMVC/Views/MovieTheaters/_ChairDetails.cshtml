@@ -1,23 +1,33 @@
 ﻿@model UnBCineFlix.Models.MovieTheater
 
 <table>
+    <thead>
+        <tr>
+            <th></th>
+            @for (int j = 0; j < Model.QtdCol; j++)
+            {
+                <th>
+                    @(j + 1)
+                </th>
+            }
+        </tr>
+
+    </thead>
     @for (int i = 0; i < Model.QtdRow; i++)
     {
         <tr style="height:36px;">
+            <td>
+                @((char)(i + 65))
+            </td>
             @for (int j = 0; j < Model.QtdCol; j++)
             {
                 <td style="width:70px;">
                     @if (Model.GetArrayChair(i, j) != null)
                     {
-                        if (Model.GetArrayChair(i, j).Status == false)
-                        {
-                            <i class="fas fa-couch" style="font-size:36px; color:green"><br />  @((char)(i + 65))@(j + 1) </i>
-                        }
-                        else
-                        {
-                            <i class="fas fa-couch" style="font-size:36px;"><br />  @((char)(i + 65))@(j + 1) </i>
-                        }
 
+                        <i class="fas fa-couch" style="font-size:36px;"></i>
+                        <br /> 
+                        @Html.ActionLink($"DeleteChair{i}{j}", "DeleteChair", new { Model.AddressCompanyId, Model.MovieTheaterNumber, Col = j, Row = i })
                     }
                 </td>
             }

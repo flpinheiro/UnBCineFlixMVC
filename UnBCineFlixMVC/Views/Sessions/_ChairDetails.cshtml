@@ -1,0 +1,31 @@
+﻿@model UnBCineFlix.Models.Session
+
+<table>
+    @for (int i = 0; i < Model.MovieTheater.QtdRow; i++)
+    {
+        <tr style="height:36px;">
+            @for (int j = 0; j < Model.MovieTheater.QtdCol; j++)
+            {
+                <td style="width:70px;">
+                    @if (Model.MovieTheater.GetArrayChair(i, j) != null)
+                    {
+                        if (Model.MovieTheater.GetArrayChair(i, j).Status == false)
+                        {
+                            <a href=@Url.Action(action:"BuyTicket", values: new {SessionId = Model.Id, ChairRow = i, ChairCol = j})>
+                                <i class="fas fa-couch" style="font-size:36px;  color:green">
+                                    <br />
+                                    @((char)(i + 65))@(j + 1)
+                                </i>
+                            </a>
+                        }
+                        else
+                        {
+                            <i class="fas fa-couch" style="font-size:36px;"><br />  @((char)(i + 65))@(j + 1) </i>
+                        }
+
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>

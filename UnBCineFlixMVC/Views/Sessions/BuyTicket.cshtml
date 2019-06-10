@@ -1,22 +1,46 @@
-﻿@model UnBCineFlix.Models.Session
+﻿@model UnBCineFlix.Models.Ticket
 
 @{
-    ViewData["Title"] = "Buy Ticket";
+    ViewData["Title"] = "Buy";
 }
 
-<h2>Buy Ticket</h2>
+<h2>Create</h2>
+
+<h4>Ticket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="buyTicket">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChairCol" class="control-label hidden"></label>
+                <input type="hidden" asp-for="ChairCol" class="form-control" />
+                <span asp-validation-for="ChairCol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChairRow" class="control-label hidden"></label>
+                <input type="hidden" asp-for="ChairRow" class="form-control" />
+                <span asp-validation-for="ChairRow" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SessionId" class="control-label hidden"></label>
+                <!--<select asp-for="SessionId" class="form-control" asp-items="ViewBag.SessionId"></select>-->
+                <input type="hidden" asp-for="SessionId" class="form-control" />
+                <span asp-validation-for="SessionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Movie)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Movie.Title)
-        </dd>
-        @{
-            await Html.RenderPartialAsync("../Sessions/_Details", Model);
-        }
-    </dl>
+    <a asp-action="Index">Back to List</a>
 </div>
+

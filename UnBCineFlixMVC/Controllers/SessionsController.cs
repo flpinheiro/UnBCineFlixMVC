@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -171,8 +172,9 @@ namespace UnBCineFlixMVC.Controllers
             return _context.Session.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> BuyTicket(int? id)
+        public async Task<IActionResult> SelectTicket(int? id)
         {
+            ViewData["erro"] = TempData["erro"];
             if (id == null)
             {
                 return NotFound();
@@ -194,15 +196,47 @@ namespace UnBCineFlixMVC.Controllers
             return View(session);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BuyTicket([Bind(" ")] Ticket ticket)
+        // GET: Tickets/Create
+        public IActionResult BuyTicket(int sessionId, int chairRow, int chairCol)
         {
-            if (ModelState.IsValid)
+            ViewData["SessionId"] = new SelectList(_context.Session, "Id", "Id");
+            var ticket = _context.Tickets.FirstOrDefault(t=> (t.SessionId == sessionId && t.ChairRow == chairRow && t.ChairCol == chairCol));
+            if (ticket != null)
             {
-
+                TempData["erro"] = "Ticket Already Sold";
+                var id = sessionId;
+                return RedirectToAction(nameof(SelectTicket), new { id });
             }
             return View();
         }
+
+        // POST: Tickets/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BuyTicket([Bind("Value,ChairCol,ChairRow,SessionId")] Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(ticket);
+                    await _context.SaveChangesAsync();
+                    var id = ticket.SessionId;
+                    return RedirectToAction(nameof(SelectTicket), new { id });
+                }
+                catch (DbUpdateException e)
+                {
+                    Debug.WriteLine(e.StackTrace);
+                    TempData["erro"] = "ticket already sold";
+                    var id = ticket.SessionId;
+                    return RedirectToAction(nameof(SelectTicket), new { id });
+                }
+            }
+            ViewData["SessionId"] = new SelectList(_context.Session, "Id", "Id", ticket.SessionId);
+            return View(ticket);
+        }
+
     }
 }

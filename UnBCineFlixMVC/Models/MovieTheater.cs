@@ -144,5 +144,13 @@ namespace UnBCineFlix.Models
                 throw new DbUpdateException($"Chair ({chair.Row},{chair.Col}) already exist, Try another", new ArgumentException());
             }
         }
+        public void CheckChairs(IList<Ticket> tickets)
+        {
+            foreach (var ticket in tickets)
+            {
+                if (_arrayChair[ticket.ChairRow][ticket.ChairCol] != null)
+                    _arrayChair[ticket.ChairRow][ticket.ChairCol].Status = true;
+            }
+        }
     }
 }
