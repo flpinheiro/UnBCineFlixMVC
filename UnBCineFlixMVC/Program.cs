@@ -24,6 +24,12 @@ namespace UnBCineFlixMVC
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((HostingContext, config) =>
+            {
+                config.SetBasePath(Directory.GetCurrentDirectory());
+                config.AddIniFile("config.ini", optional: true, reloadOnChange: true);
+                config.AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
+            })
                 .UseStartup<Startup>();
     }
 }
