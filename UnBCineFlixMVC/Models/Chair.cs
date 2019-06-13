@@ -43,7 +43,9 @@ namespace UnBCineFlix.Models
                     _col = value;
             }
         }//pk
-
+        /// <summary>
+        /// Define se a cadeira está vendida = true ou está disponivel para venda = false
+        /// </summary>
         [NotMapped]
         public bool Status { get; set; }
 

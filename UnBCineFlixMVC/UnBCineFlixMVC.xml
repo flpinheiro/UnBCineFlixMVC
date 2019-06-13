@@ -50,6 +50,11 @@
             Classe de ligação n para n <see cref="P:UnBCineFlix.Models.ArtistMovie.Artist"/> e <see cref="P:UnBCineFlix.Models.ArtistMovie.Movie"/>
             </summary>
         </member>
+        <member name="P:UnBCineFlix.Models.Chair.Status">
+            <summary>
+            Define se a cadeira está vendida = true ou está disponivel para venda = false
+            </summary>
+        </member>
         <member name="P:UnBCineFlix.Models.Chair.MovieTheater">
             <summary>
             LIgação externa com o banco de dados <see cref="P:UnBCineFlix.Models.Chair.MovieTheater"/>

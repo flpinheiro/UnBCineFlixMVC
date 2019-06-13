@@ -38,8 +38,9 @@ namespace UnBCineFlixMVC.Controllers
             }
 
             var addressCompany = await _context.AddressCompanies
-                .Include(a => a.Company)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(ac => ac.Company)
+                .FirstOrDefaultAsync(ac => ac.Id == id);
+            //select * from addresses, companies where addresses.Id = id and companies.addressCompanyId = id;
             if (addressCompany == null)
             {
                 return NotFound();

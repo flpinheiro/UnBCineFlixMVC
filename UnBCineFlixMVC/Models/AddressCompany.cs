@@ -17,7 +17,7 @@ namespace UnBCineFlix.Models
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         [Required,MaxLength(100), Display(Name = "Company Name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Conjunto de Ligações externas
         /// <see cref="Phone"/> e <see cref="MovieTheater"/>

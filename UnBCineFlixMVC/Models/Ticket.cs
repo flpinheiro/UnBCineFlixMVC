@@ -20,7 +20,7 @@ namespace UnBCineFlix.Models
         public int ChairCol { get; set; }//pk
         public int ChairRow { get; set; }//pk
 
-        public int SessionId { get; set; }
+        public int SessionId { get; set; }//pk
         public Session Session { get; set; }
 
         public override bool Equals(object obj)

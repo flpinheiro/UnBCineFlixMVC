@@ -25,6 +25,7 @@ namespace UnBCineFlix.DAL
         public DbSet<Person> People { get; set; }
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Session> Session { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 
         public UnBCineFlixContext()
@@ -47,12 +48,11 @@ namespace UnBCineFlix.DAL
             modelBuilder.Entity<Artist>().HasKey(ar => ar.Id);
             modelBuilder.Entity<Movie>().HasKey(m => m.Id);
             modelBuilder.Entity<Company>().HasKey(c => c.Id);
+            modelBuilder.Entity<Session>().HasKey(s => s.Id);
             modelBuilder.Entity<ArtistMovie>().HasKey(am => new { am.MovieId, am.ArtistId });
             modelBuilder.Entity<GenreMovie>().HasKey(gm => new { gm.GenreId, gm.MovieId });
             modelBuilder.Entity<MovieTheater>().HasKey(mt => new { mt.AddressCompanyId, mt.MovieTheaterNumber });
-            //primary key composta por id da sala de cinema e localização da coluna e fileira da cadeira
             modelBuilder.Entity<Chair>().HasKey(ch => new { ch.AddressCompanyId, ch.MovieTheaterNumber, ch.Row, ch.Col });
-            modelBuilder.Entity<Session>().HasKey(s => s.Id);
             modelBuilder.Entity<Ticket>().HasKey(t => new { t.SessionId, t.ChairRow, t.ChairCol });
             #endregion
 
@@ -200,6 +200,6 @@ namespace UnBCineFlix.DAL
             }
         }
 
-        public DbSet<UnBCineFlix.Models.Session> Session { get; set; }
+        
     }
 }
