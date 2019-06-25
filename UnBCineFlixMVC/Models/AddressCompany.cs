@@ -15,7 +15,13 @@ namespace UnBCineFlix.Models
         /// Chave estrageira do banco de Dados referência <see cref="Company"/>
         /// </summary>
         public int CompanyId { get; set; }
+        /// <summary>
+        /// Funcao Compania
+        /// </summary>
         public Company Company { get; set; }
+        /// <summary>
+        /// Funcao Nome
+        /// </summary>
         [Required,MaxLength(100), Display(Name = "Company Name")]
         public string Name { get; set; }
         /// <summary>
@@ -23,8 +29,14 @@ namespace UnBCineFlix.Models
         /// <see cref="Phone"/> e <see cref="MovieTheater"/>
         /// </summary>
         public IList<Phone> Phones { get; set; }
+        /// <summary>
+        /// Funcao Cinema
+        /// </summary>
         public IList<MovieTheater> MovieTheaters { get; set; }
 
+        /// <summary>
+        /// Funcao Endereco da Compania
+        /// </summary>
         public AddressCompany()
         {
             Phones = new List<Phone>();

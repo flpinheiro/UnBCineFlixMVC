@@ -9,6 +9,19 @@
             Classe de controle de endereço de empressas
             </summary>
         </member>
+        <member name="M:UnBCineFlixMVC.Controllers.AddressCompaniesController.#ctor(UnBCineFlix.DAL.UnBCineFlixContext)">
+            <summary>
+            ControladorDeEnderecoDasCompanhias
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:UnBCineFlixMVC.Controllers.AddressCompaniesController.Index">
+            <summary>
+            
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:UnBCineFlix.Models.Address">
             <summary>
             Classe endereco: define o endereço de uma pessoa.
@@ -100,7 +113,7 @@
             Chave estrangeira do banco de dados <see cref="P:UnBCineFlix.Models.MovieTheater.AddressCompany"/>
             </summary>
         </member>
-        <! -- Comentário XML mal formado ignorado para o membro "P:UnBCineFlix.Models.MovieTheater.Sessions" -->
+        <!-- Badly formed XML comment ignored for member "P:UnBCineFlix.Models.MovieTheater.Sessions" -->
         <member name="P:UnBCineFlix.Models.MovieTheater.Chairs">
             <summary>
             Ligação externa do banco de dados <see cref="T:UnBCineFlix.Models.Chair"/>

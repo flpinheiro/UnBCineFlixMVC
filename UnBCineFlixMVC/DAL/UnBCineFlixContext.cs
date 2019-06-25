@@ -6,35 +6,103 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlix.DAL
 {
+    /// <summary>
+    /// Classe Funcao Contexto
+    /// </summary>
     public class UnBCineFlixContext : DbContext
     {
+        /// <summary>
+        /// Funcao Endereco
+        /// </summary>
         public DbSet<Address> Addresses { get; set; }
+        /// <summary>
+        /// FUncao Endereco da Compania
+        /// </summary>
         public DbSet<AddressCompany> AddressCompanies { get; set; }
+        /// <summary>
+        /// Funcao Endereco pessoas
+        /// </summary>
         public DbSet<AddressPerson> AddressPeople { get; set; }
+        /// <summary>
+        /// Funcao Artistas
+        /// </summary>
         public DbSet<Artist> Artists { get; set; }
+        /// <summary>
+        /// Funcao Artistas de Filmes
+        /// </summary>
         public DbSet<ArtistMovie> ArtistMovies { get; set; }
+        /// <summary>
+        /// Funcao Cadeiras
+        /// </summary>
         public DbSet<Chair> Chairs { get; set; }
+        /// <summary>
+        /// Funcao Companias
+        /// </summary>
         public DbSet<Company> Companies { get; set; }
+        /// <summary>
+        /// Funcao Clientes
+        /// </summary>
         public DbSet<Customer> Customers { get; set; }
+        /// <summary>
+        /// Funcao Empregados
+        /// </summary>
         public DbSet<Employee> Employees { get; set; }
+        /// <summary>
+        /// Funcao Generos
+        /// </summary>
         //errorviemodel
         public DbSet<Genre> Genres { get; set; }
+        /// <summary>
+        /// Funcao Genero dos Filmes
+        /// </summary>
         public DbSet<GenreMovie> GenreMovies { get; set; }
+        /// <summary>
+        /// Funcao Filmes
+        /// </summary>
         public DbSet<Movie> Movies { get; set; }
+        /// <summary>
+        /// Funcao Cinema
+        /// </summary>
         public DbSet<MovieTheater> MovieTheaters { get; set; }
+        /// <summary>
+        /// Funcao Pessoas
+        /// </summary>
         public DbSet<Person> People { get; set; }
+        /// <summary>
+        /// Funcao telefone
+        /// </summary>
         public DbSet<Phone> Phones { get; set; }
+        /// <summary>
+        /// Funcao Ratings
+        /// </summary>
         public DbSet<Rating> Ratings { get; set; }
+        /// <summary>
+        /// Funcao Sessao
+        /// </summary>
         public DbSet<Session> Session { get; set; }
+        /// <summary>
+        /// Funcao Tickets
+        /// </summary>
         public DbSet<Ticket> Tickets { get; set; }
 
+        /// <summary>
+        /// Funcao Contexto
+        /// </summary>
         public UnBCineFlixContext()
         {
         }
+        /// <summary>
+        /// FUncao Opcao de Contexto
+        /// </summary>
+        /// <param name="option"></param>
         public UnBCineFlixContext(DbContextOptions<UnBCineFlixContext> option)
     : base(option)
         {
         }
+        /// <summary>
+        /// Funcao Criacao Modo 1
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Primary Key setup space
@@ -192,6 +260,10 @@ namespace UnBCineFlix.DAL
             #endregion
         }
 
+        /// <summary>
+        /// Funcao Configuracao
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace UnBCineFlix.Models
 {
+    /// <summary>
+    /// Classe Empregado
+    /// </summary>
     public class Employee : Person
     {
         /// <summary>

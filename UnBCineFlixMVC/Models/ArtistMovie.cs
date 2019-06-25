@@ -10,10 +10,21 @@ namespace UnBCineFlix.Models
     /// </summary>
     public class ArtistMovie
     {
+        /// <summary>
+        /// Funcao Identificacao do Artista
+        /// </summary>
         public int ArtistId { get; set; }
+        /// <summary>
+        /// Funcao Artista
+        /// </summary>
         public Artist Artist { get; set; }
-
+        /// <summary>
+        /// Funcao Identificacao Filmes
+        /// </summary>
         public int MovieId { get; set; }
+        /// <summary>
+        /// Funcao Filme
+        /// </summary>
         public Movie Movie { get; set; }
     }
 }

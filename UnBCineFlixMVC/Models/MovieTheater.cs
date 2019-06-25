@@ -8,11 +8,17 @@ using System.Threading.Tasks;
 
 namespace UnBCineFlix.Models
 {
+    /// <summary>
+    /// Classe Cinema
+    /// </summary>
     public class MovieTheater
     {
         //public int Id { get; set; }
 
         private int _number;
+        /// <summary>
+        /// Funcao Cinema
+        /// </summary>
         [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         [Display(Name = "Movie Theater Number")]
         public int MovieTheaterNumber
@@ -31,6 +37,9 @@ namespace UnBCineFlix.Models
 
         }
         private int _row;
+        /// <summary>
+        /// Funcao Quantidade
+        /// </summary>
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         [Display(Name = "Maximum quantities of Rows")]
@@ -49,6 +58,9 @@ namespace UnBCineFlix.Models
             }
         }
         private int _col;
+        /// <summary>
+        /// Funcao Quantidade
+        /// </summary>
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         [Display(Name = "Maximum quantities of Columns")]
@@ -71,29 +83,49 @@ namespace UnBCineFlix.Models
         /// Chave estrangeira do banco de dados <see cref="AddressCompany"/>
         /// </summary>
         public int AddressCompanyId { get; set; }
+
+        /// <summary>
+        /// Funcao Endereco da compania
+        /// </summary>
         public AddressCompany AddressCompany { get; set; }
 
-
+        /// <summary>
+        /// Funcao Cadeira
+        /// </summary>
         [NotMapped]
         private Chair[][] _arrayChair;
+        /// <summary>
+        /// Funcao Numero da Cadeira
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <returns></returns>
         public Chair GetArrayChair(int row, int col)
         {
             return _arrayChair[row][col];
         }
 
         /// <summary>
-        /// Ligação externa do banco de dados <see cref="Session"/>
-        /// </summary>public IList<Chair> Chairs { get; set; }
+        /// Funcao Sessao
+        /// </summary>
         public IList<Session> Sessions { get; set; }
         /// <summary>
         /// Ligação externa do banco de dados <see cref="Chair"/>
         /// </summary>
         public IList<Chair> Chairs { get; set; }
+        /// <summary>
+        /// Funcao Cinema
+        /// </summary>
         public MovieTheater()
         {
             Chairs = new List<Chair>();
             Sessions = new List<Session>();
         }
+        /// <summary>
+        /// Funcao Cinema
+        /// </summary>
+        /// <param name="qtdRow"></param>
+        /// <param name="qtdCol"></param>
         public MovieTheater(int qtdRow, int qtdCol)
             : this()
         {
@@ -105,6 +137,10 @@ namespace UnBCineFlix.Models
                 _arrayChair[i] = new Chair[qtdCol];
             }
         }
+        /// <summary>
+        /// Funcao Cinema
+        /// </summary>
+        /// <param name="movieTheater"></param>
         public MovieTheater(MovieTheater movieTheater)
             : this(qtdRow: movieTheater.QtdRow, qtdCol: movieTheater.QtdCol)
         {
@@ -118,6 +154,11 @@ namespace UnBCineFlix.Models
                 _arrayChair[c.Row][c.Col] = c;
             }
         }
+        /// <summary>
+        /// Funcao Adicionar Cadeira
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
         public void AddChair(int row, int col)
         {
             AddChair(new Chair(row, col));
@@ -144,6 +185,10 @@ namespace UnBCineFlix.Models
                 throw new DbUpdateException($"Chair ({chair.Row},{chair.Col}) already exist, Try another", new ArgumentException());
             }
         }
+        /// <summary>
+        /// Funcao Checar Cadeiras
+        /// </summary>
+        /// <param name="tickets"></param>
         public void CheckChairs(IList<Ticket> tickets)
         {
             foreach (var ticket in tickets)

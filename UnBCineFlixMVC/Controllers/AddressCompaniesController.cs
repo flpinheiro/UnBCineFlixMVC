@@ -17,12 +17,21 @@ namespace UnBCineFlixMVC.Controllers
     {
         private readonly UnBCineFlixContext _context;
 
+        /// <summary>
+        /// ControladorDeEnderecoDasCompanhias
+        /// </summary>
+        /// <param name="context"></param>
         public AddressCompaniesController(UnBCineFlixContext context)
         {
             _context = context;
         }
 
         // GET: AddressCompanies
+        /// <summary>
+        /// 
+        /// Tarefa de indexacao
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var unBCineFlixContext = _context.AddressCompanies.Include(a => a.Company);
@@ -30,6 +39,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: AddressCompanies/Details/5
+        /// <summary>
+        /// Detalhes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,6 +64,10 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: AddressCompanies/Create
+        /// <summary>
+        /// Criacao inteligencia artificial
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name");
@@ -59,6 +77,11 @@ namespace UnBCineFlixMVC.Controllers
         // POST: AddressCompanies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Criacao em HTTP
+        /// </summary>
+        /// <param name="addressCompany"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Country,State,City,District,Street,Number,ZipCode,Complement,CompanyId,Name")] AddressCompany addressCompany)
@@ -74,6 +97,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: AddressCompanies/Edit/5
+        /// <summary>
+        /// Funcao de editar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,6 +121,12 @@ namespace UnBCineFlixMVC.Controllers
         // POST: AddressCompanies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao de editar no HTTP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="addressCompany"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Country,State,City,District,Street,Number,ZipCode,Complement,CompanyId,Name")] AddressCompany addressCompany)
@@ -127,6 +161,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: AddressCompanies/Delete/5
+        /// <summary>
+        /// Funcao de Deletar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,6 +185,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // POST: AddressCompanies/Delete/5
+        /// <summary>
+        /// Funcao de Deletar em HTTP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

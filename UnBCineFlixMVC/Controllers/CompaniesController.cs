@@ -10,16 +10,27 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
+    /// <summary>
+    /// Classe Controle de Companias
+    /// </summary>
     public class CompaniesController : Controller
     {
         private readonly UnBCineFlixContext _context;
 
+        /// <summary>
+        /// Controle da Compania
+        /// </summary>
+        /// <param name="context"></param>
         public CompaniesController(UnBCineFlixContext context)
         {
             _context = context;
         }
 
         // GET: Companies
+        /// <summary>
+        /// Funcao Index
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             //var comp = _context.Companies.ToListAsync();
@@ -28,6 +39,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Companies/Details/5
+        /// <summary>
+        /// Funcao Detalhes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,6 +74,10 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Companies/Create
+        /// <summary>
+        /// Funcao Criar
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
@@ -66,6 +86,11 @@ namespace UnBCineFlixMVC.Controllers
         // POST: Companies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Criar HTTP
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,CNPJ,Url")] Company company)
@@ -80,6 +105,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Companies/Edit/5
+        /// <summary>
+        /// Funcao Editar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -98,6 +128,12 @@ namespace UnBCineFlixMVC.Controllers
         // POST: Companies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Editar HTTP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="company"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CNPJ,Url")] Company company)
@@ -131,6 +167,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Companies/Delete/5
+        /// <summary>
+        /// Funcao Deletar 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,6 +190,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // POST: Companies/Delete/5
+        /// <summary>
+        /// Funcao Deletar HTTP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

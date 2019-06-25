@@ -11,16 +11,27 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
+    /// <summary>
+    /// Classe Controlador de Sessoes
+    /// </summary>
     public class SessionsController : Controller
     {
         private readonly UnBCineFlixContext _context;
 
+        /// <summary>
+        /// Funcao Controlador de sessoes
+        /// </summary>
+        /// <param name="context"></param>
         public SessionsController(UnBCineFlixContext context)
         {
             _context = context;
         }
 
         // GET: Sessions
+        /// <summary>
+        /// Funcao Index
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var unBCineFlixContext =
@@ -31,6 +42,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Sessions/Details/5
+        /// <summary>
+        /// Funcao Detalhes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,6 +71,10 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Sessions/Create
+        /// <summary>
+        /// Funcao Criar
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Title");
@@ -66,6 +86,11 @@ namespace UnBCineFlixMVC.Controllers
         // POST: Sessions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Criar
+        /// </summary>
+        /// <param name="session"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,AddressCompanyId,MovieTheaterNumber,MovieId,SessionTime")] Session session)
@@ -82,6 +107,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Sessions/Edit/5
+        /// <summary>
+        /// Funcao Editar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,6 +133,12 @@ namespace UnBCineFlixMVC.Controllers
         // POST: Sessions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Editar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,AddressCompanyId,MovieTheaterNumber,MovieId,SessionTime")] Session session)
@@ -138,6 +174,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Sessions/Delete/5
+        /// <summary>
+        /// Funcao Deletar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +198,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // POST: Sessions/Delete/5
+        /// <summary>
+        /// Funcao Confirmar o Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -172,6 +218,11 @@ namespace UnBCineFlixMVC.Controllers
             return _context.Session.Any(e => e.Id == id);
         }
 
+        /// <summary>
+        /// Funcao Selecionar os Tickets
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> SelectTicket(int? id)
         {
             ViewData["erro"] = TempData["erro"];
@@ -197,6 +248,13 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Tickets/Create
+        /// <summary>
+        /// Funcao Comprar Tickets
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="chairRow"></param>
+        /// <param name="chairCol"></param>
+        /// <returns></returns>
         public IActionResult BuyTicket(int sessionId, int chairRow, int chairCol)
         {
             ViewData["SessionId"] = new SelectList(_context.Session, "Id", "Id");
@@ -213,6 +271,11 @@ namespace UnBCineFlixMVC.Controllers
         // POST: Tickets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Comprar Tickets
+        /// </summary>
+        /// <param name="ticket"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BuyTicket([Bind("Value,ChairCol,ChairRow,SessionId")] Ticket ticket)

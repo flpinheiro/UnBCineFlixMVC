@@ -11,19 +11,40 @@ namespace UnBCineFlix.Models
     /// </summary>
     public abstract class Address
     {
+        /// <summary>
+        /// Identificacao
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Funcao Pais 
+        /// </summary>
         [Required, MaxLength(100), MinLength(2)]
         public string Country { get; set; }
+        /// <summary>
+        /// Funcao Estado
+        /// </summary>
         [Required, MaxLength(100), MinLength(2)]
         public string State { get; set; }
+        /// <summary>
+        /// Funcao Cidade
+        /// </summary>
         [Required, MaxLength(100), MinLength(2)]
         public string City { get; set; }
+        /// <summary>
+        /// Funcao Distrito
+        /// </summary>
         [Required, MaxLength(100), MinLength(2)]
         public string District { get; set; }
+        /// <summary>
+        /// Funcao Rua
+        /// </summary>
         [Required, MaxLength(100), MinLength(2)]
         public string Street { get; set; }
         private int _number;
+        /// <summary>
+        /// Funcao Numero
+        /// </summary>
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Number
@@ -42,6 +63,9 @@ namespace UnBCineFlix.Models
 
         }
         private int _zip;
+        /// <summary>
+        /// Funcao CEP
+        /// </summary>
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int ZipCode
@@ -60,11 +84,15 @@ namespace UnBCineFlix.Models
 
         }
         /// <summary>
-        /// 
+        /// Funcao Complemento
         /// </summary>
         [MaxLength(255)]
         public string Complement { get; set; }
 
+        /// <summary>
+        /// Funcao String
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             var ret = new StringBuilder();

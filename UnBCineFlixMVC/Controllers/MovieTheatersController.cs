@@ -12,16 +12,27 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
+    /// <summary>
+    /// Classe Controlador de Cinema
+    /// </summary>
     public class MovieTheatersController : Controller
     {
         private readonly UnBCineFlixContext _context;
 
+        /// <summary>
+        /// Funcao Controlador de Cinema
+        /// </summary>
+        /// <param name="context"></param>
         public MovieTheatersController(UnBCineFlixContext context)
         {
             _context = context;
         }
 
         // GET: MovieTheaters
+        /// <summary>
+        /// Funcao Index
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var unBCineFlixContext = _context.MovieTheaters.Include(m => m.AddressCompany);
@@ -29,6 +40,12 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Details/5
+        /// <summary>
+        /// Funcao Detalhes
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int addressCompanyId, int movieTheaterNumber)
         {
             ViewData["mensage"] = TempData["mensage"];
@@ -45,6 +62,10 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Create
+        /// <summary>
+        /// Funcao Criar
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             ViewData["erro"] = TempData["erro"];
@@ -55,6 +76,11 @@ namespace UnBCineFlixMVC.Controllers
         // POST: MovieTheaters/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Criar
+        /// </summary>
+        /// <param name="movieTheater"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MovieTheaterNumber,Number,QtdRow,QtdCol,AddressCompanyId")] MovieTheater movieTheater)
@@ -84,6 +110,12 @@ namespace UnBCineFlixMVC.Controllers
             return View(movieTheater);
         }
 
+        /// <summary>
+        /// Funcao Criar Cadeira
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <returns></returns>
         public async Task<IActionResult> CreateChair(int addressCompanyId, int movieTheaterNumber)
         {
             var movieTheater = await _context.MovieTheaters
@@ -96,7 +128,11 @@ namespace UnBCineFlixMVC.Controllers
             ViewData["mensage"] = TempData["mensage"];
             return View();
         }
-
+        /// <summary>
+        /// Funcao Criar Cadeira
+        /// </summary>
+        /// <param name="chair"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateChair([Bind("MovieTheaterNumber,AddressCompanyId,Row,Col")] Chair chair)
@@ -132,6 +168,12 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Edit/5
+        /// <summary>
+        /// Funcao Editar
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int addressCompanyId, int movieTheaterNumber)
         {
             var movieTheater = await _context.MovieTheaters
@@ -148,6 +190,13 @@ namespace UnBCineFlixMVC.Controllers
         // POST: MovieTheaters/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Editar
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <param name="movieTheater"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int addressCompanyId, int movieTheaterNumber, [Bind("MovieTheaterNumber,QtdRow,QtdCol,AddressCompanyId")] MovieTheater movieTheater)
@@ -182,6 +231,12 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: MovieTheaters/Delete/5
+        /// <summary>
+        /// Funcao Deletar
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int addressCompanyId, int? movieTheaterNumber)
         {
             var movieTheater = await _context.MovieTheaters
@@ -195,6 +250,14 @@ namespace UnBCineFlixMVC.Controllers
             return View(movieTheater);
         }
 
+        /// <summary>
+        /// Funcao Deletar Cadeira
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <returns></returns>
         public async Task<IActionResult> DeleteChair(int addressCompanyId, int? movieTheaterNumber, int row, int col)
         {
             var chair = _context.Chairs
@@ -210,6 +273,12 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // POST: MovieTheaters/Delete/5
+        /// <summary>
+        /// Funcao Confirmacao do delete
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int addressCompanyId, int movieTheaterNumber)
@@ -222,6 +291,14 @@ namespace UnBCineFlixMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Funcao Confirmacao do delete da cadeira
+        /// </summary>
+        /// <param name="addressCompanyId"></param>
+        /// <param name="movieTheaterNumber"></param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("DeleteChair")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteChairConfirmed(int addressCompanyId, int movieTheaterNumber, int row, int col)

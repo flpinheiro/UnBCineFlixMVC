@@ -10,22 +10,37 @@ using UnBCineFlix.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
+    /// <summary>
+    /// Classe Controlador Rating
+    /// </summary>
     public class RatingsController : Controller
     {
         private readonly UnBCineFlixContext _context;
-
+        /// <summary>
+        /// Funcao Controlador de Rating
+        /// </summary>
+        /// <param name="context"></param>
         public RatingsController(UnBCineFlixContext context)
         {
             _context = context;
         }
 
         // GET: Ratings
+        /// <summary>
+        /// Funcao Index
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             return View(await _context.Ratings.ToListAsync());
         }
 
         // GET: Ratings/Details/5
+        /// <summary>
+        /// Funcao Detalhes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +59,10 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Ratings/Create
+        /// <summary>
+        /// Funcao Criar
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
@@ -52,6 +71,11 @@ namespace UnBCineFlixMVC.Controllers
         // POST: Ratings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Criar
+        /// </summary>
+        /// <param name="rating"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Age")] Rating rating)
@@ -66,6 +90,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Ratings/Edit/5
+        /// <summary>
+        /// Funcao Editar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +113,12 @@ namespace UnBCineFlixMVC.Controllers
         // POST: Ratings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Funcao Editar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="rating"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Age")] Rating rating)
@@ -117,6 +152,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // GET: Ratings/Delete/5
+        /// <summary>
+        /// Funcao Deletar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +175,11 @@ namespace UnBCineFlixMVC.Controllers
         }
 
         // POST: Ratings/Delete/5
+        /// <summary>
+        /// Funcao Confirmar Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

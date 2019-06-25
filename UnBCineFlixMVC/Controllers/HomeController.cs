@@ -8,13 +8,24 @@ using UnBCineFlixMVC.Models;
 
 namespace UnBCineFlixMVC.Controllers
 {
+    /// <summary>
+    /// Funcao Classe Controle Local
+    /// </summary>
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Funcao Index
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Funcao de Informacao
+        /// </summary>
+        /// <returns></returns>
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -22,6 +33,10 @@ namespace UnBCineFlixMVC.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Funcao de Contato
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Contact()
         {
             ViewData["Message"] = "Contact us.";
@@ -29,11 +44,19 @@ namespace UnBCineFlixMVC.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Privacidades dos usuarios
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Privacy()
         {
             return View();
         }
 
+        /// <summary>
+        /// Funcao de Erro
+        /// </summary>
+        /// <returns></returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

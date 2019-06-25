@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace UnBCineFlix.Models
 {
+    /// <summary>
+    /// Classe Cadeira
+    /// </summary>
     public class Chair
     {
         private int _row;
+        /// <summary>
+        /// Funcao Linha
+        /// </summary>
         [Required]
         [Range(0, int.MaxValue,ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Row
@@ -27,6 +33,9 @@ namespace UnBCineFlix.Models
             }
         }//pk
         private int _col;
+        /// <summary>
+        /// Funcao Coluna
+        /// </summary>
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be bigger than zero.")]
         public int Col
@@ -48,8 +57,13 @@ namespace UnBCineFlix.Models
         /// </summary>
         [NotMapped]
         public bool Status { get; set; }
-
+        /// <summary>
+        /// Funcao Identificacao do endereco das companias
+        /// </summary>
         public int AddressCompanyId { get; set; }//fk,pk
+        /// <summary>
+        /// Funcao Numero do Cinema
+        /// </summary>
         public int MovieTheaterNumber { get; set; }//fk,pk
         /// <summary>
         /// LIgação externa com o banco de dados <see cref="MovieTheater"/>
@@ -57,18 +71,30 @@ namespace UnBCineFlix.Models
         //public int MovieTheaterId { get; set; }
         public MovieTheater MovieTheater { get; set; }
         //public IList<Ticket> Tickets { get; set; }
-
+        /// <summary>
+        /// Funcao cadeira
+        /// </summary>
         public Chair()
         {
             Status = false; // cadeira vazia
             //Tickets = new List<Ticket>();
         }
+        /// <summary>
+        /// Matriz Cadeira
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="status"></param>
         public Chair(int row, int col, bool status = false)
         {
             Row = row;
             Col = col;
             Status = status;
         }
+        /// <summary>
+        /// String Cadeira
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return Status.ToString();
